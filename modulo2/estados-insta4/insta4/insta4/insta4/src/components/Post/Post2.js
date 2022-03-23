@@ -40,7 +40,7 @@ const PostPhoto = styled.img`
   width: 100%;
 `
 
-class Post extends React.Component {
+class Post2 extends React.Component {
   state = {
     curtido: true,
     numeroCurtidas: 10,
@@ -106,4 +106,4 @@ class Post extends React.Component {
   }
 }
 
-export default Post
+export default Post2

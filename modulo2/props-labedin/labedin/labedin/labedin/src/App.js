@@ -36,10 +36,7 @@ function App() {
         />
       </div>
       <div>
-      <CardPequeno
       
-      />
-      </div>
       <div className="page-section-container">
         <h2>Minhas redes sociais</h2>
         <ImagemButton 
