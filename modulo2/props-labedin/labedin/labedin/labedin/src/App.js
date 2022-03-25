@@ -3,10 +3,10 @@ import './App.css';
 import CardGrande from './components/CardGrande/CardGrande';
 import ImagemButton from './components/ImagemButton/ImagemButton';
 import MinhaImagem from './Img/lucas.jpg'
-import CardPequeno from'./CardPequeno'
+
 function App() {
   return (
-    <div className="App">
+    <div className="App" >
       <div className="page-section-container">
         <h2>Dados pessoais</h2>
         <CardGrande
@@ -47,7 +47,8 @@ function App() {
         <ImagemButton 
           imagem="https://logodownload.org/wp-content/uploads/2014/09/twitter-logo-1-1.png" 
           texto="Twitter" 
-        />        
+        />   
+        </div>     
       </div>
     </div>
   );
