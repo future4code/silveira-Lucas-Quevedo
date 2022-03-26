@@ -51,7 +51,8 @@ class Post extends React.Component {
   onClickCurtida = () => {
     console.log('Curtiu!')
     this.setState({
-      curtido: this.state.curtido
+      curtido: this.state.curtido = false,
+      numeroCurtidas: this.state.numeroCurtidas + 1
     })
   }
 
@@ -62,8 +63,8 @@ class Post extends React.Component {
   }
   aoEnviarCurtida = () => {
     this.setState({
-      curtido: false,
-      numeroCurtidas: this.state.numeroCurtidas + 1
+      curtido: true,
+      // numeroCurtidas: this.state.numeroCurtidas 
   })
   }
 

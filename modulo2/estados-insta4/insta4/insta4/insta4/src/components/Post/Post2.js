@@ -42,14 +42,19 @@ const PostPhoto = styled.img`
 
 class Post2 extends React.Component {
   state = {
-    curtido: true,
+    curtido: false,
     numeroCurtidas: 10,
     comentando: false,
     numeroComentarios: 15
   }
 
   onClickCurtida = () => {
-    console.log('Curtiu!')
+    console.log('Curtiu!') 
+    this.setState({
+      curtido: this.state.curtido = true,
+      numeroCurtidas: this.state.numeroCurtidas + 1
+    })
+  
   }
 
   onClickComentario = () => {

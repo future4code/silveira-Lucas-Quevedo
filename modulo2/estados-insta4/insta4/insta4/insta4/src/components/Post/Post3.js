@@ -44,23 +44,32 @@ class Post3 extends React.Component {
   state = {
     curtido: true,
     numeroCurtidas: 10,
-    comentando: false,
+    comentando: true,
     numeroComentarios: 15
   }
 
   onClickCurtida = () => {
     console.log('Curtiu!')
+    this.setState({
+      curtido: this.state.curtido = true,
+      numeroCurtidas: this.state.numeroCurtidas + 1
+    })
+  
   }
+  
+    
+  
 
   onClickComentario = () => {
+    console.log("comentou!")
     this.setState({
-      comentando: !this.state.comentando
+      comentando: this.state.comentando
     })
   }
 
   aoEnviarComentario = () => {
     this.setState({
-      comentando: false,
+      comentando: true,
       numeroComentarios: this.state.numeroComentarios + 1
     })
   }

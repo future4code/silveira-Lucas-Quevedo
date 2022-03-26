@@ -3,6 +3,7 @@ import './App.css';
 import CardGrande from './components/CardGrande/CardGrande';
 import ImagemButton from './components/ImagemButton/ImagemButton';
 import MinhaImagem from './Img/lucas.jpg'
+import CardPequeno from './components/CardPequeno/CardPequeno'
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
           imagem="https://cdn-icons-png.flaticon.com/512/929/929750.png" 
           texto="Ver mais"
         />
+        
       </div>
+      <CardPequeno email ={CardPequeno}/>
 
       <div className="page-section-container">
         <h2>Experiências profissionais</h2>
