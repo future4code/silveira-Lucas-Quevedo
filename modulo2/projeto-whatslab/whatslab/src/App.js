@@ -1,35 +1,35 @@
 import React from 'react';
-// import styled from 'styled-components'
+import styled from 'styled-components'
 
-// const AppContainer = styled.div`
-//   border: 5px black;
-//   height: 100vh;
-//   box-sizing: border-box;
-//   width: 100vh;
-//   margin: auto;
-//   display: flex;
-//   flex-direction: column;
-//   background-color: red;
-// `
+const AppContainer = styled.div`
+  border: 5px black;
+  height: 100vh;
+  box-sizing: border-box;
+  width: 100vh;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+`
 
-// const MensagemContainer = styled.div`
-//   flex-grow: 1;
-//   padding: 16px;
-//   display: flex;
-//   flex-direction: column-reverse;
-// `
+const MensagemContainer = styled.div`
+  flex-grow: 1;
+  padding: 16px;
+  display: flex;
+  flex-direction: column-reverse;
+`
 
-// const InputContainer = styled.div`
-//   display: flex;
-// `
+const InputContainer = styled.div`
+  display: flex;
+`
 
-// const InputNome = styled.input`
-//   width: 100px;
-// `
+const InputNome = styled.input`
+  width: 100px;
+`
 
-// const InputMensagem = styled.input`
-//   flex-grow: 1;
-// `
+const InputMensagem = styled.input`
+  flex-grow: 1;
+`
 
 class App extends React.Component {
   state = {
