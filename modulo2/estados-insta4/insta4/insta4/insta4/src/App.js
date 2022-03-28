@@ -1,42 +1,98 @@
 import React from 'react';
 import styled from 'styled-components'
 import Post from './components/Post/Post';
-import Post2 from './components/Post/Post2';
-import Post3 from'./components/Post/Post3';
-import img from './img/flamengo.jpg';
-import lucas from './img/lucas.jpg';
+
 
 const MainContainer = styled.div`
   display: flex;
-  justify-content:flex-end;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  /* background-color: red; */
 `
 
 class App extends React.Component {
+  state = {
+    post: [
+      {
+        nomeUsuario: "João",
+        fotoUsuario: "https://picsum.photos/50/50",
+        fotoPost: "https://picsum.photos/200/100"
+      },
+
+      {
+        nomesuario: "Lucas",
+        fotoUsuario: "https://picsum.photos/50/60",
+        fotoPost: "https://picsum.photos/200/150"
+      },
+
+      {
+        nomeUsuario: "Aline",
+        fotoUsuario: "https://picsum.photos/50/70",
+        fotoPost: "https://picsum.photos/200/250"
+      }
+    ],
+
+    inputUsuario: "",
+    inputFotoUsuario: "",
+    inputFotoPost: ""
+
+  };
+  
+  addPost = () => {
+    const novoPost = {
+      nomeUsuario: this.state.inputUsuario,
+      fotoUsuario: this.state.inputFotoUsuario,
+      fotoPost: this.state.inputFotoPost
+    }
+
+    const atualizaPosts = [novoPost, ...this.state.post]
+    this.setState({
+      post: atualizaPosts
+    })
+  }
+ 
+  onChangeInputUsuario = (event) => {
+    this.setState({inputUsuario: event.target.value})
+  };
+
+  onChangeInputFotoUsuario = (event) => {
+    this.setState({inputFotoUsuario: event.target.value})
+  };
+
+  onChangeInputFotoPost = (event) => {
+    this.setState({inputFotoPost: event.target.value})
+  };
+
   render() {
-    return (
-      
-      <MainContainer>
-        <h1>Insta4</h1>
+    const arrayDeComponentes = this.state.post.map((item) => {
+
+      return (
         <Post
-          nomeUsuario={'paulo'}
-          fotoUsuario={img}
-          fotoPost={'https://picsum.photos/200/151'}
+          {...item}
         />
-        <Post2
-        nomeUsuario={'lucas'}
-        fotoUsuario={lucas}
-        fotoPost={'https://picsum.photos/200/150'}
-      />
-        <Post3
-        nomeUsuario={'joão'}
-        fotoUsuario={'https://picsum.photos/50/50'}
-        fotoPost={'https://picsum.photos/200/152'}
-      />
-       
-        
+      )
+    })
+
+    return (
+      <MainContainer>
+        <input
+          value={this.state.inputUsuario}
+          onChange={this.onChangeInputUsuario}
+          placeholder={"Nome Usuário"}
+        />
+        <input
+          value={this.state.inputFotoUsuario}
+          onChange={this.onChangeInputFotoUsuario}
+          placeholder={"Foto Usuário"}
+        />
+        <input
+          value={this.state.inputFotoPost}
+          onChange={this.onChangeInputFotoPost}
+          placeholder={"Foto Post"}
+        />
+        <button onClick={this.adicionarPost}>Adicionar</button>
+
+        {arrayDeComponentes}
       </MainContainer>
     );
   }
