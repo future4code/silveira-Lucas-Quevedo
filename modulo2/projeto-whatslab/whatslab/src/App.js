@@ -1,106 +1,114 @@
-import React from "react";
-import "./App.css";
-import styled from "styled-components";
+// import React from 'react';
+// import styled from 'styled-components'
 
-// const Msg = styled.div`
-// display: flex;
-// gap: 10px;
-// padding: 10px;
+// const AppContainer = styled.div`
+//   border: 5px outset pink;
+//   height: 100vh;
+//   box-sizing: border-box;
+//   width: 100vh;
+//   margin: auto;
+//   display: flex;
+//   flex-direction: column;
+//   background-color: #EEE6DD;
 // `
-// // const BalaoDeMensagens = styled.div`
-// //   display: flex;
-// //   gap: 10px;
-// //   padding: 10px;
-// // `;
 
-const CorpoDasMensagens = styled.div`
-  display: flex;
-  margin: auto;
-  width: 40vw;
-  height: 95vh;
-  border: solid black 1px;
-  flex-direction: column-reverse;
-  
-`;
+// const MensagemContainer = styled.div`
+//   flex-grow: 1;
+//   padding: 16px;
+//   display: flex;
+//   flex-direction: column-reverse;
+// `
 
-const MenuDasMensagens = styled.div `
-  display:flex;
-`
+// const InputContainer = styled.div`
+//   display: flex;
+// `
 
-const NomeEmMaiuscula = styled.strong `
-  text-transform: capitalize;
-`
+// const InputNome = styled.input`
+//   width: 100px;
+// `
 
-const InputUsuario = styled.input `
-  width: 8vw;
-`
-
-// const InputMensagem = styled.input `
+// const InputMensagem = styled.input`
 //   flex-grow: 1;
 // `
 
-class App extends React.Component {
-  state = {
-    mensagens: [
-      { usuario: "soter",
-        mensagem: "Olá",
-      }
-    ],
-    rascunhoInputUsuario: "",
-    rascunhoInputMensagem: "",
-  };
+// class App extends React.Component {
+//   state = {
+//     messages: [],
+//     usuario: '',
+//     mensagem: ''
+//   }
 
-  adicionaMensagem = () => {
-    const rascunhoMensagem = {
-      usuario: this.state.rascunhoInputUsuario,
-      mensagem: this.state.rascunhoInputMensagem,
-    };
-    this.setState({ rascunhoInputUsuario: "", rascunhoInputMensagem: "" });
-    const novasMensagens = [...this.state.mensagens, rascunhoMensagem];
-    this.setState({ mensagens: novasMensagens });
-  };
+//   onChangeUsuario = (event) => {
+//     this.setState({usuario: event.target.value})
+//   }
 
-  onChangeInputUsuario = (event) => {
-    this.setState({ rascunhoInputUsuario: event.target.value });
-  };
+//   onChangeMensagem = (event) => {
+//     this.setState({mensagem: event.target.value})
+//   }
 
-  onChangeInputMensagem = (event) => {
-    this.setState({ rascunhoInputMensagem: event.target.value });
-  };
+//   enviarMensagem = () => {
+//     const novaMensagem = {
+//       user: this.state.usuario,
+//       text: this.state.mensagem
+//     }
 
-  render() {
-    const listaDeMensagens = this.state.mensagens.map((mensagem) => {
-      return (
-        <>
-          <p> <NomeEmMaiuscula>{mensagem.usuario}</NomeEmMaiuscula>:</p>
-          
-          <p>{mensagem.mensagem}</p>
-        // </>
-      );
-    });
+//     const novaMensagemArray = [novaMensagem, ...this.state.messages]
 
-    return (
-      <CorpoDasMensagens>
-        <MenuDasMensagens>
-        <InputUsuario
-         
-          value={this.state.rascunhoInputUsuario}
-          onChange={this.onChangeInputUsuario}
-          placeholder="Nome do Usuário"
-        />
+//     this.setState({messages: novaMensagemArray, mensagem: ''})
+//   }
 
-        {/* <InputMensagem
-          value={this.state.rascunhoInputMensagem}
-          onChange={this.onChangeInputMensagem}
-          placeholder="Mensagem"
-        /> */}
+//   render() {
+//     return (
+//       <AppContainer>
+//         <MensagemContainer>
+//           {this.state.messages.map((message, index) => {
+//             return <p key={index}>
+//               <strong>{message.user}</strong>: {message.text}
+//             </p>
+//           })}
+//         </MensagemContainer>
+//         <InputContainer>
+//           <InputNome
+//             onChange={this.onChangeUsuario} 
+//             value={this.state.i} 
+//             placeholder={'Usuário'}
+//           />
+//           <InputMensagem
+//             onChange={this.onChangeMensagem} 
+//             value={this.state.mensagem} 
+//             placeholder={'Mensagem'}
+//           />
+//           <button onClick={this.enviarMensagem}>Enviar</button>
+//         </InputContainer>
+//       </AppContainer>
+//     );
+//   }
+// }
 
-        <button onClick={this.adicionaMensagem}>Adicionar</button>
-        </MenuDasMensagens>
-        <div>{listaDeMensagens}</div>
-      </CorpoDasMensagens>
-    );
+// export default App;
+
+
+class App extends React.Component{
+  state ={
+    nome:""
   }
-}
 
-export default App;
+componentDitMount(){
+  const nomeSalvo = localStorage.getItem('nome')
+  this.setState({nome: nomeSalvo})
+}
+componentDidUpadate() {
+  localStorage.setItem('nome', this.state.nome)
+}
+onChangeNome = (event) =>{
+  this.setState({nome: event.target.value})
+
+}
+render() {
+  return(
+    <div>
+      <input type="text" value={this.state.nome} onChange={this.onChangeNome}></input>
+    </div>
+  )
+} 
+}
