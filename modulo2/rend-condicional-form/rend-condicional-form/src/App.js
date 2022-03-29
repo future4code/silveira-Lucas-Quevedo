@@ -11,8 +11,19 @@ const Div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: orange;
+  color:white;
+  border: solid 150px;
+  button {
+    background-color: brown;
+    color:white;
+    border-radius: 70px;
+
+  }
+  
   input {
     width: 300px;
+    border-radius: 70px;
   }
 `
 class App extends React.Component {
