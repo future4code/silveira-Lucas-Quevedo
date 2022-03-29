@@ -1,16 +1,59 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-import Hello from './components/PaginaUm'
+import styled from 'styled-components'
+import Etapa1 from './components/PaginaUm';
+import Etapa2 from './components/2semCursoSuperior';
+import Etapa3 from './components/3temCursoSuperior';
+import Final from './components/finalAgradecimento';
+const Div = styled.div`
 
-function App() {
-  return (
-    <div className="App">
-      <header>
-        <h1>oi</h1>
-        <Hello/>
-      </header>
-    </div>
-  );
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  input {
+    width: 300px;
+  }
+`
+class App extends React.Component {
+  state = {
+    etapa: 1
+  }
+
+  renderizaEtapa = () => {
+   
+    switch (this.state.etapa) {
+      case 1:
+        return <>
+                <Etapa1/>
+                <button onClick={this.irParaProximaEtapa}>Próxima Etapa</button>
+              </>
+      case 2:
+        return <>
+                <Etapa2/>
+                <button onClick={this.irParaProximaEtapa}>Próxima Etapa</button>
+              </>
+      case 3:
+        return <>
+                <Etapa3/>
+                <button onClick={this.irParaProximaEtapa}>Próxima Etapa</button>
+              </>
+      case 4:
+        return <>
+                <Final/>
+              </>
+    }
+  }
+
+  irParaProximaEtapa = () => this.setState({etapa: this.state.etapa + 1});
+
+  render() {
+    return (
+      <Div>
+        {this.renderizaEtapa()}
+      </Div>
+    );
+  }
 }
 
 export default App;
