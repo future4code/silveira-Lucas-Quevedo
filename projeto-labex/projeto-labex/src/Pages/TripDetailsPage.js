@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom'
 
 export const TripDetailsPage = () => {
 const [detalhes, setDetalhes] = useState({})
+const [candidates, setCandidates] = useState([])
   useEffect(() =>{
     
    getTriDetails()
@@ -30,6 +31,32 @@ const [detalhes, setDetalhes] = useState({})
   
 
 
+const approvedCandidates = trip.approved.map((candidate) =>{
+  const approvedCandidates = trip.approved && trip.approved.map((candidate) =>{
+    return(
+      <div key={candidate.id}>
+        {candidate.name}
+        
+      </div>
+    )
+  })
+})
+
+
+const listcandidadtes = candidates.map((list) =>{
+  return(
+    <div>
+      <p>{list.name}</p>
+      <p>{list.age}</p>
+      <p>{list.country}</p>
+      <p>{list.applicationText}</p>
+      <p>{list.profession}</p>
+      <button onClick={() => candidates(list.id, false)}>Aprovar</button>
+      <button onClick={() => candidates(list.id, false)}>Reprovar</button>
+    </div>
+  )
+})
+
   return (
   <div>
     <div>TripDetailsPage</div>
@@ -37,6 +64,9 @@ const [detalhes, setDetalhes] = useState({})
     <p>{detalhes.planet}</p>
     <p>{detalhes.description}</p>
     <p>{detalhes.durationInDays}</p>
+
+    <h1>Lista de candidatos</h1>
+    {listcandidadtes}
     </div>
   )
 }
