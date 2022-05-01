@@ -7,12 +7,12 @@ import  styled  from 'styled-components'
 
 
 const Borda = styled.div`
-border: 5px solid white;
+border: 5px solid #000080;
 height: 200px;
 width: 500px;
 font-family: 'Bebas Neue', cursive;
-background-color: black;
-color: white;
+background-color: beige;
+color:  #000080;
 padding: 20px;
 `
 const Container = styled.div`
@@ -20,6 +20,29 @@ margin: 0 auto;
 align-items: center;
 display: flex;
 flex-direction: column;
+background-color: #000080;
+`
+
+const H1 = styled.h1`
+color:beige;
+`
+const Button = styled.button`
+background-color: #000080;
+color: beige;
+font-family: 'Roboto', sans-serif,Regular 400 Italic;
+font-size: large;
+border-radius: 20px;
+height: 40px;
+`
+const ButtonPlace = styled.div`
+margin-top: 50px;
+display: flex;
+margin-left: 0%;
+/* justify-content: space-between ; */
+/* justify-content: space-around; */
+flex-direction: row;
+align-items: center;
+margin-bottom:80px;
 `
 export const ListTripsPage = () => {
   const navigate = useNavigate()
@@ -61,9 +84,11 @@ const listaViagens = viagem.map((detalhes) =>{
 })
   return (
   <Container>
-    <h1>ListTripsPage</h1>
-    <button onClick={() =>irParaApplicationForm(navigate)}>Apilcar</button>
-    <button onClick={() => irParaHome(navigate)}>Voltar</button>
+    <H1>Lista de Viagens</H1>
+    <ButtonPlace>
+    <Button onClick={() =>irParaApplicationForm(navigate)}>Apilcar</Button>
+    <Button onClick={() => irParaHome(navigate)}>Voltar</Button>
+    </ButtonPlace>
     {listaViagens}
     
     </Container>

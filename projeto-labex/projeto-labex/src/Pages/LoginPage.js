@@ -7,12 +7,12 @@ import  styled  from 'styled-components'
 import useForm from '../hooks/useForm'
 
 const Borda = styled.div`
-border: 5px solid white;
+border: 200px solid #000080;
 height: 200px;
 width: 500px;
 font-family: 'Bebas Neue', cursive;
-background-color: black;
-color: white;
+background-color: beige;
+color:  #000080;
 padding: 20px;
 `
 const Container = styled.div`
@@ -20,10 +20,22 @@ margin: 0 auto;
 align-items: center;
 display: flex;
 flex-direction: column;
+background-color: #000080;
+height: 700px;
 `
 const Input = styled.input`
-background-color: white;
-border: 10px solid black;
+background-color: beige;
+border: 10px solid beige;
+font-family: 'Bebas Neue', cursive;
+color:#000080 ;
+`
+const Button = styled.button`
+background-color: #000080;
+color: beige;
+font-family: 'Bebas Neue', cursive;
+font-size: large;
+border-radius: 20px;
+height: 40px;
 `
 
 export const LoginPage = () => {
@@ -94,7 +106,7 @@ export const LoginPage = () => {
     pattern={"^.{3,}"}
     title={"Senha deve ter no mínimo 3 caracteres"}
     />
-   <button>Enviar</button>
+   <Button>Enviar</Button>
    </form>
    </Borda>
     </Container>

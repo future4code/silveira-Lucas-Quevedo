@@ -10,15 +10,25 @@ margin: 0 auto;
 align-items: center;
 display: flex;
 flex-direction: column;
+background-color: beige;
+color:#000080;
 `
 const Borda = styled.div`
-border: 5px solid white;
+border: 5px solid beige;
 height: 200px;
 width: 500px;
 font-family: 'Bebas Neue', cursive;
-background-color: black;
-color: white;
+background-color: #000080;
+color: beige;
 padding: 20px;
+`
+const Button = styled.button`
+background-color: #000080;
+color: beige;
+font-family: 'Bebas Neue', cursive;
+font-size: large;
+border-radius: 20px;
+height: 40px;
 `
 
 
@@ -66,7 +76,7 @@ const listaViagens = tripPage.map((detalhes) =>{
   return <div key={detalhes.id}>
     <Borda>
 <h3>{detalhes.name}</h3>
-<button onClick={() =>irParaTripDetails(navigate, detalhes.id)}>Detalhes</button>
+<Button onClick={() =>irParaTripDetails(navigate, detalhes.id)}>Detalhes</Button>
 <p>{detalhes.planet}</p>
 <p>Dias: {detalhes.durationInDays}</p>
 <p>{detalhes.description}</p>
@@ -77,8 +87,8 @@ const listaViagens = tripPage.map((detalhes) =>{
   
   return (
   <Container>
-     <h1>AdminHomePage</h1>
-     <button onClick={() =>irParaCreateTrip (navigate)}> Criar Viagens</button>
+     <h1>Pagina de Administração</h1>
+     <Button onClick={() =>irParaCreateTrip (navigate)}> Criar Viagens</Button>
     
     {listaViagens}
    

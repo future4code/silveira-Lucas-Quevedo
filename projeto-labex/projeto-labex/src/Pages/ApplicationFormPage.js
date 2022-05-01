@@ -10,19 +10,58 @@ const Container = styled.div`
 display: flex;
 justify-content: center;
 align-items: center;
-width: 500px;
+/* width: 500px; */
 margin: 0 auto;
 flex-direction: column;
 padding: 20px;
+`
+const Container2 = styled.div`
+height: 900px;
+align-items: center;
+background-color: beige;
+color: 	#000080;
+font-family: 'Bebas Neue', cursive;
+display: flex;
+justify-content: center;
+flex-direction: column;
+margin: 0 auto;
+width: 1500px;
+`
+const ButtonPlace = styled.div`
+margin-top: 50px;
+display: flex;
+margin-left: 0%;
+/* justify-content: space-between ; */
+/* justify-content: space-around; */
+flex-direction: row;
+align-items: center;
+margin-bottom:80px;
+`
+const Button = styled.button`
+background-color: #000080;
+color: beige;
+font-family: 'Bebas Neue', cursive ;
+font-size: large;
+border-radius: 20px;
+height: 40px;
 `
 
 const Input = styled.input`
 width: 500px;
 padding: 30px;
+background-color: beige;
+color: #000080;
+font-family: 'Bebas Neue', cursive ;
+font-size: larger;
+
 `
 const Select = styled.select`
 width: 564px;
 padding: 30px;
+background-color: beige;
+color: #000080;
+font-family: 'Bebas Neue', cursive ;
+font-size: larger;
 `
 
 export const ApplicationFormPage = () => {
@@ -115,12 +154,14 @@ console.log(listaViagens)
    
   return (
   <Container>
+    <Container2>
      
      
-    <h1>ApplicationFormPage</h1>
-    <button onClick={() =>irParaHome(navigate)}>Home</button>
+    <h1>Aplicar Viagem</h1>
+   
     <div>
     <form>
+      
       <br></br>
       <Select 
       
@@ -431,10 +472,16 @@ console.log(listaViagens)
 	<option value="Zimbabwe">Zimbabwe</option>
 	<option value="Zâmbia">Zâmbia</option>
     </Select>
+   
     </form>
-    <button onClick={application}>Enviar</button>
-    <button onClick={()=> irParaTripDetails(navigate)}>Detalhes</button>
+    <ButtonPlace>
+    <Button onClick={() =>irParaHome(navigate)}>Home</Button>
+    <Button onClick={application}>Enviar</Button>
+    </ButtonPlace>
+    {/* <button onClick={()=> irParaTripDetails(navigate)}>Detalhes</button> */}
+
     </div>
+    </Container2>
     </Container>
   )
 }
