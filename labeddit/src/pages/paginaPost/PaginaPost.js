@@ -26,7 +26,7 @@ const PaginaPost = () => {
      
   })
   .then((res) =>{ 
-      
+    getPost()
       clear ()
   })
 
@@ -37,6 +37,7 @@ const PaginaPost = () => {
 const onSubmitComments = (event) =>{
   event.preventDefault()
    createComments()
+   
 }
     const mostrarPost = post && post.map((detail) =>{
         return (<div>

@@ -34,6 +34,24 @@ const PaginaFeed = () => {
         .catch((err) => alert(err.response.message))
     
     }
+
+
+    const vote = (vote,id) =>{
+        const url = `${BASE_URL}/posts/${id}/votes`
+        const body = {
+            direction:vote,
+        }
+        const headers = {
+        headers : {
+            Authorization: localStorage.getItem("token")
+        }
+    }
+    axios.post(url, body, headers)
+    .then((res) => {
+        getPost()
+        console.log(res)})
+    .catch((err) => console.log(err))
+    }
     
     const onSubmitPost = (event) =>{
         event.preventDefault()
@@ -56,8 +74,14 @@ const PaginaFeed = () => {
             <PlaceButton>
                                
 
-            <BotaoCriarPost color='primary'>+</BotaoCriarPost>
-            <BotaoCriarPost color='primary'>-</BotaoCriarPost>
+            <BotaoCriarPost 
+            color='primary'
+            onClick={() => vote(1, post.id)}
+            >+</BotaoCriarPost>
+            <BotaoCriarPost 
+            color='primary'
+            onClick={() => vote(-1, post.id)}
+            >-</BotaoCriarPost>
            <h4> {mostrar.voteSum} </h4>
             </PlaceButton>
              </CardFeed>
