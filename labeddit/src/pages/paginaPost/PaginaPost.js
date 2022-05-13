@@ -26,7 +26,7 @@ const PaginaPost = () => {
      
   })
   .then((res) =>{ 
-      getPost()
+      
       clear ()
   })
 
@@ -34,9 +34,10 @@ const PaginaPost = () => {
 
 }
 
-const onSubmitPost = (event) =>{
+const onSubmitComments = (event) =>{
   event.preventDefault()
    createComments()
+}
     const mostrarPost = post && post.map((detail) =>{
         return (<div>
        
@@ -47,6 +48,7 @@ const onSubmitPost = (event) =>{
         )
 
     })
+  
   return (<Placecard>
       <Form onSubmit={onSubmitComments}>
 
@@ -73,4 +75,4 @@ const onSubmitPost = (event) =>{
   )
 }
 
-export default PaginaPost;
+export default PaginaPost
