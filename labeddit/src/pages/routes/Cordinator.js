@@ -1,9 +1,9 @@
 export const irParaCadastro = (navigate) =>{
-navigate("/")
+navigate("/cadastro")
 }
 
 export const irParaLogin = (navigate) =>{
-    navigate("/login")
+    navigate("/")
 }
 
 export const irParaFeed = (navigate) =>{

@@ -21,13 +21,15 @@ margin-bottom: 30px;
 `
 export const PlaceButton = styled.div`
 display: flex;
-flex-direction: row;
+/* flex-direction: row; */
+/* position: relative; */
+justify-content: center;
 
 `
 
 export const BotaoCriarPost = styled(Fab)`
-/* position: fixed; */
-right: 85px;
-bottom: 10px;
+
+right: 60px;
+bottom: 0px;
 z-index: 1;
-`
+`   

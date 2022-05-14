@@ -13,7 +13,7 @@ import axios from 'axios'
 const PaginaFeed = () => {
     useProtectPage()
     const navigate = useNavigate()
-    const [feed, getPost] = useRequestData([], `${BASE_URL}/posts`)
+    const [feed, getPost, setFeed] = useRequestData([], `${BASE_URL}/posts`)
     const [form, onChange, clear] = useForm({title:"", body:""})
 
     const token = localStorage.getItem("token")
@@ -49,7 +49,7 @@ const PaginaFeed = () => {
     axios.post(url, body, headers)
     .then((res) => {
         getPost()
-        console.log(res)})
+        })
     .catch((err) => console.log(err))
     }
     
@@ -64,27 +64,30 @@ const PaginaFeed = () => {
         irParaPost(navigate, id)
     }
 
+  
+
     const mostrarFeed =feed && feed.map((mostrar) =>{
-        return (<CardFeed key={mostrar.id} onClick={() => onClickCard(mostrar.id)}>
-            
+        return (<CardFeed key={mostrar.id}   >
+           
             <p>Enviado por:   {mostrar.username}</p>
             <h3>{mostrar.body}</h3>
          
-            <p>Comentario:{mostrar.commentCount}</p>
-            <PlaceButton>
-                               
-
+            
+            <PlaceButton>   
             <BotaoCriarPost 
             color='primary'
-            onClick={() => vote(1, post.id)}
+            onClick={() => vote(1, mostrar.id)}
             >+</BotaoCriarPost>
+            
             <BotaoCriarPost 
             color='primary'
-            onClick={() => vote(-1, post.id)}
+            onClick={() => vote(-1, mostrar.id)}
             >-</BotaoCriarPost>
-           <h4> {mostrar.voteSum} </h4>
+             <h4>curtidas: {mostrar.voteSum} </h4>
             </PlaceButton>
+            <p> <Button   onClick={() => onClickCard(mostrar.id)}>Comentarios:</Button>{mostrar.commentCount}</p>
              </CardFeed>
+             
         )
 
     }) 

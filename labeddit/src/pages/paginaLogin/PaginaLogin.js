@@ -18,14 +18,13 @@ const PaginaLogin = () => {
    
     const OnsubmitInput = (event) =>{
         event.preventDefault()
-        console.log(form)
         login()
     }
 
     const login = () =>{
         axios.post(`${BASE_URL}/users/login`, form)
         .then((res) =>{
-            console.log(res)
+            
             localStorage.setItem("token", res.data.token)
             irParaFeed(navigate)
             clear()
