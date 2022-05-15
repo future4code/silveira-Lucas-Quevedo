@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { irParaCadastro, irParaFeed, irParaLogin, irParaPost } from '../routes/Cordinator'
 import {Button} from '@material-ui/core'
@@ -8,32 +8,21 @@ import useForm from '../../Hooks/Hooks'
 import Logo from '../../img/logo.png'
 import axios from 'axios'
 import {BASE_URL} from '../../constants/Urls'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import { cadastrar } from '../services/user'
 
 const PaginaCadastro = () => {
     const navigate = useNavigate()
     const [form, onChange, clear] = useForm({username: "",email:"", password:""})
-    
+    const [loading, setLoading] = useState(false)
 
-    const cadastrar = (body, clear, navigate) =>{
-        axios.post(` https://labeddit.herokuapp.com/users/signup`, body)
-        .then((res) => {
-            localStorage.setItem("token", res.data.token)
-            clear()
-            irParaFeed(navigate)
+  
 
-        })
-        .catch((err) => alert(err.response.data.message))
-    }
+  const OnsubmitInput = (event) =>{
+    event.preventDefault()
+    cadastrar(form, clear, navigate, setLoading )
+}
 
-   
-   
-    const OnsubmitInput = (event) =>{
-        event.preventDefault()
-        cadastrar(form, clear, navigate)
-        console.log(form)
-        // console.log(cadastrar)
-
-    }
 
     
   return (
@@ -82,7 +71,7 @@ const PaginaCadastro = () => {
            type={"submit"}
            >
           
-               Enviar
+          {loading? <CircularProgress color={'inherit'} size={24}></CircularProgress> :  <>Fazer cadastro </>}
                
             </Button>
 

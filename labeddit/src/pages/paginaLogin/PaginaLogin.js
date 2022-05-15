@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { irParaCadastro, irParaFeed, irParaLogin, irParaPost } from '../routes/Cordinator'
 import {Button} from '@material-ui/core'
@@ -6,32 +6,24 @@ import { InputsContainer, ScreenContainer } from './StylesLogin'
 import TextField from "@material-ui/core/TextField"
 import useForm from '../../Hooks/Hooks'
 import Logo from '../../img/logo.png'
-import axios from 'axios'
-import { BASE_URL } from '../../constants/Urls'
+import { login } from '../services/user'
+
 import useUnProtectPage from '../../Hooks/UseProtectPage'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 const PaginaLogin = () => {
     useUnProtectPage()
     const navigate = useNavigate()
     const [form, onChange, clear] = useForm({email:"", password:""})
+    const [loading, setLoading] = useState(false)
    
    
     const OnsubmitInput = (event) =>{
         event.preventDefault()
-        login()
+        login(form, clear, navigate, setLoading)
     }
 
-    const login = () =>{
-        axios.post(`${BASE_URL}/users/login`, form)
-        .then((res) =>{
-            
-            localStorage.setItem("token", res.data.token)
-            irParaFeed(navigate)
-            clear()
-        })
-        .catch((err) =>alert(err.response.data.message))
-        
-    }
+  
 
   return (
     <ScreenContainer>
@@ -66,7 +58,7 @@ const PaginaLogin = () => {
            type={"submit"}
            >
           
-               Entrar
+               {loading? <CircularProgress color={'inherit'} size={24}></CircularProgress> :  <>Entrar </>}
                
             </Button>
         

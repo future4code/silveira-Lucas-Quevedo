@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import { BASE_URL } from '../../constants/Urls';
 import useProtectPage from '../../Hooks/UseProtectPage';
@@ -8,16 +8,18 @@ import {Button, TextField} from '@material-ui/core/'
 import { Form, Placecard } from './StylesPost';
 import useForm from '../../Hooks/Hooks';
 import axios from 'axios';
-
+import CircularProgress from '@material-ui/core/CircularProgress'
 const PaginaPost = () => {
     useProtectPage()
     const params = useParams()
     const [post, getPost] = useRequestData([], `${BASE_URL}/posts/${params.id}/comments`)
     const [form, onChange, clear] = useForm({body:""})
+    const [loading, setLoading] = useState(false)
     
     const token = localStorage.getItem("token")
 
     const createComments = () =>{
+      setLoading(true)
       axios.post (`${BASE_URL}/posts/${params.id}/comments`, form,{
         headers:{
           Authorization: token
@@ -27,16 +29,19 @@ const PaginaPost = () => {
   })
   .then((res) =>{ 
     getPost()
+    setLoading(false)
       clear ()
   })
 
-  .catch((err) => alert(err.response.message))
+  .catch((err) => {
+    setLoading(false)
+    alert(err.response.message)})
 
 }
 
 const onSubmitComments = (event) =>{
   event.preventDefault()
-   createComments()
+   createComments(setLoading)
    
 }
     const mostrarPost = post && post.map((detail) =>{
@@ -70,7 +75,11 @@ const onSubmitComments = (event) =>{
           fullWidth
           variant='contained' 
           color="primary" 
-          type={"submit"}>Enviar</Button>
+          type={"submit"}>
+            
+            {loading? <CircularProgress color={'inherit'} size={24}></CircularProgress> :  <>Enviar </>}
+            
+            </Button>
            </Form>
     </Placecard>
   )

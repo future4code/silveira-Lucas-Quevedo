@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { BASE_URL } from '../../constants/Urls'
 import useProtectPage from '../../Hooks/UseProtectPage'
@@ -8,17 +8,19 @@ import { BotaoCriarPost, CardFeed, Form, PlaceButton, Placecard } from './Styles
 import {Button, TextField} from '@material-ui/core/'
 import useForm from '../../Hooks/Hooks'
 import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 
 const PaginaFeed = () => {
     useProtectPage()
     const navigate = useNavigate()
-    const [feed, getPost, setFeed] = useRequestData([], `${BASE_URL}/posts`)
+    const [feed, getPost] = useRequestData([], `${BASE_URL}/posts`)
     const [form, onChange, clear] = useForm({title:"", body:""})
-
+    const [loading, setLoading] = useState(false)
     const token = localStorage.getItem("token")
 
     const createPost = () =>{
+        setLoading(true)
         axios.post(`${BASE_URL}/posts`, form,{
             headers:{
                 Authorization: token
@@ -28,10 +30,13 @@ const PaginaFeed = () => {
         })
         .then((res) =>{ 
             getPost()
+            setLoading(false)
             clear ()
         })
 
-        .catch((err) => alert(err.response.message))
+        .catch((err) => {
+            setLoading(false)
+            alert(err.response.message)})
     
     }
 
@@ -55,7 +60,7 @@ const PaginaFeed = () => {
     
     const onSubmitPost = (event) =>{
         event.preventDefault()
-         createPost()
+         createPost(setLoading)
       
     }
     
@@ -130,7 +135,12 @@ const PaginaFeed = () => {
          variant='contained' 
         color="primary" 
         fullWidth
-        type={"submit"}>Post</Button>
+        type={"submit"}>
+            
+            
+            {loading? <CircularProgress color={'inherit'} size={24}></CircularProgress> :  <>Post</>}
+               
+            </Button>
            </Form>
            {/* <br></br>
            <br></br>
