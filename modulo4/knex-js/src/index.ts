@@ -116,6 +116,55 @@ app.get("/actor/id/:id", async (req:Request, res:Response)=>{
     }
 })
 
+//b
+
+const genero = async (gender:string) =>{
+    const resultado =  connection.raw(`SELECT * FROM Actor WHERE gender = "${gender}"`)
+    return resultado 
+}
+
+//c)
+const gendero2 = async (gender:string) =>{
+    const resultado =  connection.raw(`SELECT COUNT(*) FROM Actor WHERE gender = "${gender}"`)
+    return resultado 
+}
+
+
+app.get("/actor/gender/:gender", async (req:Request, res:Response)=>{
+try {
+    const resultado = await genero(req.params.gender)
+    res.status(200).send(resultado[0]) 
+    
+} catch (error:any) {
+    res.status(200).send(error.sqlMessage)
+}
+   
+})
+//4.--------------------------------------------------------------------------------------------------------------------------------------------
+//a)
+app.put("/actor/:id", async (req:Request, res:Response)=>{
+    try {
+       await connection("Actor")
+        .update({
+            salary: req.body.salary,
+        }).where({id: req.params.id})
+        res.status(200).send({id: req.params.id})
+        
+    } catch (error:any) {
+        res.status(500).send(error.sqlMessage)
+        
+    }
+})
+//b)
+app.delete("/actor/:id", async (req:Request, res:Response)=>{
+    try {
+        await connection("Actor").where({id:req.params.id}).delete()
+        res.status(200).send("Ator deletado")
+    } catch (error: any) {
+        res.status(500).send(error.sqlMessage)
+    }
+ })
+
  app.post("/actor", async (req:Request, res:Response)=>{
     try {
         await connection.raw(`
