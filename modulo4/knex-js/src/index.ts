@@ -16,15 +16,18 @@ const getActorById = async (id:string) =>{
 
 //b)
 
-const pegarNome =async (name:string) => {
-    const result = await connection.raw(`
-    SELECT * FROM Actor WHERE name = "${name}"
-    `)
-    return result
-    
-}
+app.get("/actor", (req:Request, res:Response)=>{
+    try {
+        const resultado = await connection.raw(`
+        SELECT * FROM Actor
+        `)
+        res.status(200).send(resultado)
+    } catch (error) {
+        
+    }
+})
 
-    console.log(pegarNome)
+   
 
 
 
