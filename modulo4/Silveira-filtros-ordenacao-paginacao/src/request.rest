@@ -1,5 +1,4 @@
 # GET http://localhost:3003/limit?id=&sort=name&order=asc&pagina=2
 # Content-Type: application/json
 
-GET http://localhost:3003/user
-Content-Type: application/json
+GET http://localhost:3003/endpoint/user?name=sort
