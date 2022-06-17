@@ -1,0 +1,2 @@
+GET http://localhost:3003/recipes?title=torta&sort=&order=ASC&page=
+Content-Type: application/json
