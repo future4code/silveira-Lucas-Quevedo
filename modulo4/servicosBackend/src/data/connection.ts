@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import knex from "knex";
 
 dotenv.config();
-console.log(process.env.DB_HOST)
+
 export const connection = knex({
 	client: "mysql",
 	connection: {

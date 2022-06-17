@@ -6,7 +6,7 @@ import { InserirBanco } from "./Exercicios/Exercicio2";
 
 
 
-// app.get("/endereco/:cep", getAddress)
+
 app.get("/pegar/:cep", pegarEndereco)
 
 app.post("/banco/:cep",InserirBanco) 

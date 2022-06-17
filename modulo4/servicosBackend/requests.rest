@@ -1,6 +1,6 @@
 # POST http://localhost:3003/banco/96080690
 
-POST  http://localhost:3003/banco/96080690
+POST http://localhost:3003/banco/96080690?numero=262
 
 ###
 post https://cep-labenu.herokuapp.com/user/05424150
