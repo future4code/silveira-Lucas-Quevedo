@@ -1,0 +1,36 @@
+POST http://localhost:3003/user
+Content-Type: application/json
+
+{
+    "name":"Lucas",
+    "email":"lucas@gmail.com",
+    "password":"123lucas"
+}
+
+###
+GET http://localhost:3003/users
+###
+POST http://localhost:3003/products
+Content-Type: application/json
+
+{
+    "name":"Notebook Vaio FE15 Intel Core I5 8GB 256GB SSD 15.6",
+    "price":3599.90,
+    "image_url":"https://lojascolombooficial.com/wp-content/uploads/2022/06/notebook-vaio-fe15-intel-core-i5-8gb-256gb-ssd-15-6-linux-chumbo-escuro-c78c1e6c-2.jpg"
+}
+
+###
+GET http://localhost:3003/products
+
+###
+POST http://localhost:3003/purchases
+Content-Type: application/json
+
+{
+    "userId":"1655572194687",
+    "productId":"1655584441857",
+    "quantity":3
+}
+
+###
+GET http://localhost:3003/users/1655572194687/purchases
