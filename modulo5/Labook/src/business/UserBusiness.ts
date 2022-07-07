@@ -1,4 +1,5 @@
 import UserData from "../data/userData";
+import Post from "../model/Post";
 import { Login } from "../model/types";
 import User from "../model/User"
 import { Authenticator } from "../services/Authenticator";
@@ -42,21 +43,30 @@ export default class UserBusiness{
             
         }
 
-        const user = await new UserData().findUserByEmail(login.email)
+        const user = await new UserData().findUserByEmail(email)
         if(!user){
             throw new Error("Email não cadastrado!");
             
         }
-
+        
         const hash = new HashManager()
-        const correctPass= hash.compareHash(password, user.password)
-        console.log(correctPass)
+        const correctPass= hash.compareHash(password, user.getPass())
+        
         if(!correctPass){
             throw new Error("Senha invalida!");
             
         }
         const authenticator =  new Authenticator()
-        const token = authenticator.generate({id:user.id})
+        const token = authenticator.generate({id:user.getId()})
         return token
     }
+    friend = (user1:string, user2:string):Promise<any> =>{
+        
+        if(!user1 || !user2){
+            throw new Error("Usuário invalido!")
+        }
+        const friendShip = new UserData().createFriend(user1, user2)
+        return friendShip
+    }
+
 }

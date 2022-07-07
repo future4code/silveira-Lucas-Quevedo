@@ -1,27 +1,11 @@
-import express, {Express} from "express"
-import dotenv from "dotenv"
-import cors from "cors"
-import {AddressInfo} from "net"
+import app from "./controller/app";
+import postController from "./controller/postController";
 import useController from "./controller/UserController";
 
-dotenv.config();
-
-export const app:Express = express();
-app.use(express.json())
-app.use(cors())
-
-const server = app.listen(process.env.PORT || 3003, ()=>{
-    if(server){
-        const address = server.address() as AddressInfo
-        console.log(`Server is running in http://localhost:${address.port}`)
-    }else{
-        console.error(`Failure upon starting server.`);
-}
-})
-
-
-export default app
 const userController = new useController()
-
+const postsController = new postController()
 app.post("/user/signup", userController.signup );
 app.post("/user/login", userController.login)
+app.post("/create/post", postsController.post)
+app.post("/users/friends", userController.friends)
+app.get("/posts/:id", postsController.getPost)

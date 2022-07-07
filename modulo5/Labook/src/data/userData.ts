@@ -1,9 +1,10 @@
 import User from "../model/User"
-import connection from "../data/BaseDataBase"
+import { BaseDataBase } from "./BaseDataBase";
 
-export default class UserData  {
+
+export default class UserData extends BaseDataBase {
     insert = async (user: any) => {
-        const user2 = await connection("labook_users")
+        const user2 = await UserData.connection("labook_users")
             .insert(user)
             if(!user2){
                 throw new Error("Sem conexão com o banco");
@@ -14,10 +15,10 @@ export default class UserData  {
 
     findUserByEmail = async (email: string): Promise<User> => {
         try {
-            const user1 = await connection("labook_users")
+            const user1 = await UserData.connection("labook_users")
                 .select("*")
                 .where({ email })
-            return user1[0]
+            return User.userModel(user1[0])
         } catch (error: any) {
             throw new Error(error.message || error.sqlMessage)
 
@@ -28,13 +29,40 @@ export default class UserData  {
 
     login = async (email:string):Promise<User> =>{
         try {
-            const user3 = await connection("labook_users")
+            const user3 = await UserData.connection("labook_users")
             .select("*")
             .where({email})
             return user3[0]
         } catch (error:any) {
             throw new Error(error.message || error.sqlMessage);
             
+            
+        }
+    }
+
+    friends = async (id:string)=>{
+        try {
+            const user = await UserData.connection("labook_users")
+            .select("*")
+            .where({id})
+            return user[0]
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+            
+            
+        }
+    }
+
+    createFriend = async (user1:string, user2:string) =>{
+        try {
+            const user = await UserData.connection("labook_friends")
+            .insert({
+                user1,
+                user2
+            })
+            return user[0]
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
             
         }
     }

@@ -1,8 +1,10 @@
 import { Request, Response } from "express";
-import { send } from "process";
 import UserBusiness from "../business/UserBusiness";
+import UserData from "../data/userData";
+import { Authenticator } from "../services/Authenticator";
 
-export default class useController {
+
+export default class useController{
   signup = async (req: Request, res: Response) => {
     try {
       const { name, email, password } = req.body
@@ -31,12 +33,34 @@ export default class useController {
         password
       }
       const token = await new UserBusiness().login(user)
-      res.status(200).send({ message: "Usuário logado com sucesso!", token })
+      res.status(200).send({ message: "Usuário logado com sucesso!", token})
         
       } catch(error: any) {
     res.status(500).send(error.message)
 
   }
 
+  }
+
+  friends = async (req:Request, res:Response) =>{
+    try {
+      const {id} = req.body
+     const token = req.headers.authorization as string
+
+     const tokenData = new Authenticator().getTokenData(token).id
+      if(!tokenData){
+        throw new Error("Não autorizado!");
+        
+      }
+
+
+      const friend1 = await new UserData().friends(id)
+      const friend2 = await new UserData().friends(tokenData)
+      await new UserBusiness().friend(friend1.id, friend2.id)
+      
+      res.status(200).send({message: "Conexção conectada com suceeso!"})
+    } catch (error:any) {
+      res.status(404).send(error.message)
+    }
   }
 }
