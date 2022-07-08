@@ -58,9 +58,32 @@ export default class useController{
       const friend2 = await new UserData().friends(tokenData)
       await new UserBusiness().friend(friend1.id, friend2.id)
       
-      res.status(200).send({message: "Conexção conectada com suceeso!"})
+      res.status(200).send({message: "Conexção conectada com sucesso!"})
     } catch (error:any) {
       res.status(404).send(error.message)
     }
+  }
+
+  deleteFriend = async (req:Request, res:Response) =>{
+    try {
+      const {id} = req.params
+      const token = req.headers.authorization as string
+  
+     if(!id){
+      throw new Error("Passe o id no body!"); 
+     }
+
+     if(!token){
+      throw new Error("Passe o token no authorization!");
+      
+     }
+
+     await new UserBusiness().delete(id, token)
+      res.status(204).send({menssge:"Amizade desfeita!"})
+    } catch (error:any) {
+      res.status(404).send(error.message || error.sqlMessage)
+    }
+   
+
   }
 }

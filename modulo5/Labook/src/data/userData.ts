@@ -66,4 +66,19 @@ export default class UserData extends BaseDataBase {
             
         }
     }
+
+    delete = async (IdUser:string, IdFriend:string) =>{
+        try {
+         
+            await UserData.connection("labook_friends")
+            .del()
+            .where({user1:IdUser, user2:IdFriend})
+            .orWhere({user1:IdFriend, user2:IdUser})
+            
+            
+        } catch (error:any) {
+            throw new Error("Erro na tentativa!");
+            
+        }
+    }
 }

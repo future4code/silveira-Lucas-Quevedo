@@ -1,9 +1,6 @@
 import { Request, Response } from "express";
-import { type } from "os";
 import PostBusiness from "../business/PostBusiness";
 import PostData from "../data/PostData";
-import Post from "../model/Post";
-import { Posts } from "../model/types";
 import { Authenticator } from "../services/Authenticator";
 
 

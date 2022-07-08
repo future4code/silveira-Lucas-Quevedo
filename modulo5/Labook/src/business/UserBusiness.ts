@@ -1,5 +1,4 @@
 import UserData from "../data/userData";
-import Post from "../model/Post";
 import { Login } from "../model/types";
 import User from "../model/User"
 import { Authenticator } from "../services/Authenticator";
@@ -67,6 +66,31 @@ export default class UserBusiness{
         }
         const friendShip = new UserData().createFriend(user1, user2)
         return friendShip
+    }
+
+
+    delete = async (idFriend:string, token:string) =>{
+        console.log(token)
+        if(!idFriend){
+            throw new Error("Usuário não encontrado!");
+            
+        }
+
+        const idUser = new Authenticator().getTokenData(token).id
+        if(!idUser){
+          throw new Error("Não autorizado!");
+          
+        }
+
+        const friend1 = await new UserData().friends(idFriend)
+        if(!friend1){
+            throw new Error("Não encotrado!");
+            
+        }
+        
+
+        const deleteFriends = new UserData().delete(idUser, idFriend)
+        return deleteFriends
     }
 
 }

@@ -50,3 +50,12 @@ Authorization: {{token}}
    "id":"241eb149-7d5b-4c9f-93b9-18afde4dd153"
 }
 
+
+
+###
+@token = {{login.response.body.token}}
+DELETE  http://localhost:3003/delete/241eb149-7d5b-4c9f-93b9-18afde4dd153
+Authorization: {{token}}
+
+
+
