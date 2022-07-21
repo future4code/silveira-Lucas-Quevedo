@@ -47,3 +47,16 @@ display: flex;
 align-items: center;
 justify-content: space-between;
 `
+export const ButtonSignupAddress=styled(Button)`
+&&{
+    background-color: transparent;
+    color: black;
+    width:100%;
+    font-size: larger;
+    font-family: 'Bebas Neue', cursive;
+    :hover{
+        background-color: beige;
+        color:black
+    }
+}
+`

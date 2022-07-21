@@ -11,7 +11,8 @@ width: 100%;
 height: 3.5rem;
 padding: 1rem 0.503rem 1rem 1.063rem;
 border-radius: 2px;
-border: solid 1px gray;
+border: solid 1px gainsboro;
+border-radius: 7px 7px 7px 7px;
 `
 export const Menu = styled.nav`
 height: 2.625rem;
@@ -35,7 +36,8 @@ background-color: transparent;
 border:none;
 outline: none;
 padding: 0 1rem;
+color: black;
 :hover{
-    color: red;
+    color:  red;
 }
 `

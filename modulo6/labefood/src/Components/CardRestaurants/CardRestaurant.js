@@ -7,10 +7,9 @@ export const CardRestaurant = ({restaurant}) =>{
        <ImageRestaurant src={restaurant.logoUrl}/>
        <NameRestaurant>{restaurant.name}</NameRestaurant>
        <BoxInformeTimePrice>
-        <InformeTimePrice>{restaurant.deliveryTime}</InformeTimePrice>
-        <InformeTimePrice>{restaurant.shipping}</InformeTimePrice>
+        <InformeTimePrice>Delivery: {restaurant.deliveryTime} min</InformeTimePrice>
+        <InformeTimePrice>Envio: {restaurant.shipping} R$</InformeTimePrice>
        </BoxInformeTimePrice>
         </ContainerCardRestaurant>
 }
 
-// export default CardRestaurant

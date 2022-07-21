@@ -18,3 +18,7 @@ export const goToRestaurants = (navigate, id) =>{
     navigate(`/feed/${id}`)
 }
 
+export const goToBack = (navigate) =>{
+    navigate(-1)
+}
+

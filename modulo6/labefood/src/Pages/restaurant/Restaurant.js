@@ -1,38 +1,70 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import {BASE_URL} from "../../Constants/Url"
-import {useParams} from"react-router-dom"
-import { ContainerRestaurant, cardRestaurantDetails } from './Styled'
+import { BASE_URL } from "../../Constants/Url"
+import { useParams } from "react-router-dom"
+import { CardRestaurant, Category, ContainerRestaurant, SectionProductByCategory } from './Styled'
+import { CardRestaurantDetails } from '../../Components/CardRestaurantDetails/CardRestaurantDetails'
+import { CardProduct } from '../../Components/CardProduct/CardProduct'
+import { Header } from '../../Components/Header/CardHeader'
 
 const Restaurant = () => {
-  const {restaurantId} = useParams()
+  const { restaurantId } = useParams()
   const [restaurant, setRestaurant] = useState({})
-  console.log(restaurantId)
-  const getRestaurantId = () =>{
-    axios.get(`${BASE_URL}/restaurants/${restaurantId}`,{
-      headers:{
+  const [categories, setCategories] = useState([])
+
+  const getRestaurantId = () => {
+    axios.get(`${BASE_URL}/restaurants/${restaurantId}`, {
+      headers: {
         auth: window.localStorage.getItem("token")
       }
-      })
-      .then((res)=>{
+    })
+      .then((res) => {
         setRestaurant(res.data.restaurant)
-        console.log(res.data)
+       
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err.response)
       })
+  }
+
+  useEffect(() => {
+    getRestaurantId()
+  }, [])
+
+  useEffect(() =>{
+    if(restaurant.products){
+      const newCategory = []
+      for(const product of restaurant.products){
+        if(!newCategory.includes(product.category))
+        newCategory.push(product.category)
+      }
+      setCategories(newCategory)
     }
-  
-    useEffect(()=>{
-      getRestaurantId()
-    },[])
+  },[restaurant])
   return (
     <ContainerRestaurant>
-      <cardRestaurantDetails restaurant={restaurant}/>
-     
-      
-      </ContainerRestaurant>
+      <Header title={"Restaurante"} back={true}/>
+      <CardRestaurant>
+        <CardRestaurantDetails restaurant={restaurant} key={restaurant.id} />
+        {
+          restaurant.products && 
+          categories.map((category)=>{
+            return <SectionProductByCategory>
+              <Category>{category}</Category>
+              {
+                restaurant.products.filter((product)=>{
+                  return product.category === category
+                })
+                .map((product)=>{
+                  return<CardProduct product={product} key={product.id}></CardProduct>
+                })
+              }
+            </SectionProductByCategory>
+          })
+        }
+      </CardRestaurant>
+    </ContainerRestaurant>
   )
-  }
+}
 
 export default Restaurant

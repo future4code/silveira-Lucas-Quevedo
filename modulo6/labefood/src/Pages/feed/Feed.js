@@ -19,7 +19,6 @@ const Feed = () => {
       }
     })
     .then((res)=>{
-      console.log(res.data)
       setRestaurants(res.data.restaurants)
       catogoryFilter(res.data.restaurants)
     })
@@ -35,7 +34,7 @@ const Feed = () => {
   buttonCategory ? restaurant.category.toLowerCase().includes(buttonCategory.toLowerCase()):true
  )
  .map((restaurant)=>{
-  return <CardRestaurant restaurant={restaurant}></CardRestaurant>
+  return <CardRestaurant restaurant={restaurant} key={restaurant.id}></CardRestaurant>
  })
   
  const catogoryFilter = (res) =>{
@@ -59,8 +58,8 @@ const Feed = () => {
   
   
   return (
-    <ContainerFeed>
-      <Header title={"Ifuture"}/>
+    <ContainerFeed key={restaurants.id}>
+      <Header title={"ifuture"}/>
       <CardsRestaurants>
       
       <InputSearch

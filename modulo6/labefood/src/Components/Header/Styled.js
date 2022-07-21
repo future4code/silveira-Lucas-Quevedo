@@ -2,20 +2,19 @@ import styled from "styled-components";
 
 export const ContainerCardHeader = styled.div`
 width: 100%;
-border: 1px solid grey;
+border: 1px solid gainsboro;
 height: 2.75rem;
 margin: 0.5rem 0;
-display: flex;
-justify-content: center;
+display: grid;
+grid-template-columns: 24px 1fr 24px;
+justify-items: center;
+padding: 0 1rem;
 align-items: center;
 `
 export const Title = styled.h1`
 font-family: 'Bebas Neue', cursive;
-font-size: 1rem;
-font-weight: normal;
-font-stretch: normal;
-font-style: normal;
-line-height: normal;
+font-size: xx-large;
 letter-spacing: -0.39px;
 text-align: center;
+grid-column-start: 2;
 `

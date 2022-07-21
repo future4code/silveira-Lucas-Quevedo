@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import { ButtonLogin, Form, InputMaterial, Main } from './Styled'
+import { ButtonLogin, ButtonSignupAddress, Form, InputMaterial, Main } from './Styled'
 import IconButton from '@mui/material/IconButton';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import axios from "axios"
 import { BASE_URL } from '../../Constants/Url';
-import { goToFeed } from '../../Routes/Coordinator';
+import { goToFeed, goToSignup} from '../../Routes/Coordinator';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -109,6 +109,7 @@ const Login = () => {
 
       <ButtonLogin type='submit'>Entrar</ButtonLogin>
       </Form>
+      <ButtonSignupAddress onClick={() => goToSignup(navigate)}>Não possui cadastrado? Clique aqui.</ButtonSignupAddress>
     </Main>
   )
 }
