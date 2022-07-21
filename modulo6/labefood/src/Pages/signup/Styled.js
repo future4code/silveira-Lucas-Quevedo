@@ -6,7 +6,7 @@ export const InputMaterial = styled(TextField)`
 width: 100%;
 `
 export const Main = styled.div`
-padding: 10px;
+/* padding: 10px; */
 width: 100%;
 height: 100vh;
 display: flex;

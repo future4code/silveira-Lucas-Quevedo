@@ -7,6 +7,7 @@ import axios from "axios"
 import { BASE_URL } from '../../Constants/Url';
 import { goToSignupAdress } from '../../Routes/Coordinator';
 import { useNavigate } from 'react-router-dom';
+import {Header} from "../../Components/Header/CardHeader"
 const Signup = () => {
   const {form, onchange, clean} = UseForm({
     "name": "",
@@ -50,7 +51,7 @@ const Signup = () => {
   }
   return (
     <Main>
-      <h1>Cadastrar</h1>
+      <Header title={"Cadastrar"} back={true}/>
       <Form onSubmit={onSubmitForm}>
       <InputMaterial
       id="standard-basic" 

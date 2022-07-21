@@ -8,7 +8,7 @@ padding: 0 1rem;
 `
 export const InputSearch = styled.input`
 width: 100%;
-height: 3.5rem;
+height: 1.5rem;
 padding: 1rem 0.503rem 1rem 1.063rem;
 border-radius: 2px;
 border: solid 1px gainsboro;

@@ -1,38 +1,53 @@
-import React, { useEffect, useState } from 'react'
-import { CartConfig, InfoProfile, Main, MainCart } from './Styled'
-// import { useRequestData } from '../../Hooks/useRequestData'
+import React, { useState } from 'react'
+import { ButtonCart, CartConfig, CartInfo, Form, InfoProfile, InfoRestaurant, Main, MainCart } from './Styled'
 import { BASE_URL } from '../../Constants/Url'
-import axios from 'axios'
+import { useRequestData } from '../../Hooks/useRequestData'
+import { Header } from '../../Components/Header/CardHeader'
+
 const Cart = () => {
-  const [profile, setProfile] = useState([])
-  const getProfile = async () =>{
-    await axios.get(`${BASE_URL}/profile`, {
-        headers:{
-            auth: window.localStorage.getItem("token")
-        }
+  const profile = useRequestData({}, `${BASE_URL}/profile`)
+  const [payment, setPayment] = useState([])
+  const [paymentMethod, setPaymentMethod] = useState({
+    'money':false,
+    'creditCard':false
+  })
+
+  const onchangePayment = (event) =>{
+    const newCheck = {...paymentMethod}
+    newCheck[event.target.name] = event.target.checked
+
+    const result = Object.keys(newCheck).filter((pay)=>{
+      if(newCheck[pay]){
+        return[pay, ...payment]
+      }
     })
-    .then((res)=>{
-        setProfile(res.data)
-    })
-    .catch((err)=>{
-        console.log(err.response.data.message)
-    })
-    getProfile()
-    // useEffect(()=>{
-    //     getProfile()
-    // },[])
-}
+    setPayment(result)
+    setPaymentMethod(newCheck)
+  } 
+  
+
   return (
     <Main>
       <MainCart>
-        <h1>Meu carrinho</h1>
+        <Header title={"Meu carrinho"}back={true}/>
+        
       </MainCart>
       <CartConfig>
         <InfoProfile>
         <p>endereço de entrega</p>
-        <p>{profile.user}</p>
+        {/* <p>{profile[0].user.address}</p> */}
         </InfoProfile>
-      </CartConfig>
+        </CartConfig> 
+        <InfoRestaurant>
+          <p>Nome Restaurante</p>
+          <p>Rua restaurante</p>
+          <p>30 - 45 min</p>
+        </InfoRestaurant>
+        <CartInfo>
+
+        </CartInfo>
+        
+     
       <div>
         <p>Frete R$ 00,00</p>
       </div>
@@ -40,15 +55,30 @@ const Cart = () => {
         <p>Subtotal</p>
         <p>R$ 00,00</p>
       </div>
+      
+      
       <>
         <h1>Forma de pagamento</h1>
-        <form>
-        <label>Dinheiro</label>
-        <input  type={'checkbox'}></input>
-        <label>Cartão de crédito</label>
-        <input type={'checkbox'}></input>
-        <button>Confirmar</button>
-        </form>
+        <Form>
+          {Object.keys(paymentMethod).map((key)=>{
+            const checked = paymentMethod[key]
+            return(
+              <div
+              key={key}
+              ><input
+              checked={checked}
+              name={key}
+              id={key}
+              type={'checkbox'}
+              onChange={onchangePayment}
+              ></input>
+              <label>{key}</label>
+              </div>
+            )
+          })}
+      
+        <ButtonCart>Confirmar</ButtonCart>
+        </Form>
       </>
       </Main>
   )

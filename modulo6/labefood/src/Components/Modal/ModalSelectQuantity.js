@@ -1,13 +1,18 @@
 import * as React from 'react';
-import Backdrop from '@mui/material/Backdrop';
-import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
-import Typography from '@mui/material/Typography';
 import { BoxModal, ButtonAddCard, SelectQuantity, Title } from './Styled';
 
-
-
 export const ModalSelectQuantity = ({open, setOpen}) => {
+  const [quantity, setQuantity] = React.useState(1)
+
+  const onChangeQuantity = (event) =>{
+    setQuantity (event.target.value)
+  }
+
+  const onClickChoiceQuantity = () =>{
+    return (Number(quantity))
+  }
+  console.log(onClickChoiceQuantity())
   return (
     <div>
         
@@ -22,7 +27,7 @@ export const ModalSelectQuantity = ({open, setOpen}) => {
       >
        <BoxModal>
         <Title>Selecione a quantidade desejada</Title>
-        <SelectQuantity>
+        <SelectQuantity onChange={onChangeQuantity}>
         <option>1</option>
         <option>2</option>
         <option>3</option>
@@ -34,7 +39,7 @@ export const ModalSelectQuantity = ({open, setOpen}) => {
         <option>9</option>
         <option>10</option>
         </SelectQuantity>
-        <ButtonAddCard>
+        <ButtonAddCard onClick={onClickChoiceQuantity}>
             Adicionar ao carrinho
         </ButtonAddCard>
        </BoxModal>
