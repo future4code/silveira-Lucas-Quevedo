@@ -13,8 +13,9 @@ align-items: center;
 `
 export const Title = styled.h1`
 font-family: 'Bebas Neue', cursive;
-font-size: xx-large;
+font-size: x-large;
 letter-spacing: -0.39px;
 text-align: center;
 grid-column-start: 2;
+align-items: center;
 `

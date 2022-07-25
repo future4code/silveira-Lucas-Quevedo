@@ -20,8 +20,12 @@ align-items: center;
 border: solid 1px gainsboro;
 width: 2.063rem;
 height: 2.063rem;
+color: red;
+font-family: 'Bebas Neue', cursive;
 `
 export const BoxNameQuantity = styled.div`
+display: flex;
+justify-content: space-between;
 ` 
 export const NameProduct = styled.h3`
 font-family: 'Bebas Neue', cursive;
@@ -72,4 +76,18 @@ export const InformPrice = styled.div`
 font-family: 'Bebas Neue', cursive;
 color: grey;
 font-size: larger;
+`
+export const InformButtonRemove = styled.button`
+width: 5.625rem;
+height: 1.938rem;
+border-radius: 8px 0 8px 0;
+background-color: white;
+outline: 0;
+border: 1px gainsboro solid;
+font-family: 'Bebas Neue', cursive;
+font-size: large;
+:hover{
+
+color:red;
+}
 `

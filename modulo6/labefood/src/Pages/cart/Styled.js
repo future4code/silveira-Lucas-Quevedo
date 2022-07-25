@@ -50,8 +50,9 @@ flex-direction: column;
 width: 100%;
 `
 export const EmptyCart = styled.div`
-font-size: 3rem;
+font-size: 2rem;
 text-align: center;
+color: red;
 `
 export const Payment = styled.div`
 display: flex;

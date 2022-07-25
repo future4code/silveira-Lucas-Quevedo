@@ -1,13 +1,15 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { BASE_URL } from "../../Constants/Url"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { CardRestaurant, Category, ContainerRestaurant, SectionProductByCategory } from './Styled'
 import { CardRestaurantDetails } from '../../Components/CardRestaurantDetails/CardRestaurantDetails'
 import { CardProduct } from '../../Components/CardProduct/CardProduct'
 import { Header } from '../../Components/Header/CardHeader'
+import { goToCart } from '../../Routes/Coordinator'
 
 const Restaurant = () => {
+  const navigate = useNavigate()
   const { restaurantId } = useParams()
   const [restaurant, setRestaurant] = useState({})
   const [categories, setCategories] = useState([])
@@ -43,7 +45,8 @@ const Restaurant = () => {
   },[restaurant])
   return (
     <ContainerRestaurant>
-      <Header title={"Restaurante"} back={true}/>
+      <Header title={"Restaurante"} back={true} />
+      <button onClick={() => goToCart(navigate)}>Carrinho</button>
       <CardRestaurant>
         <CardRestaurantDetails restaurant={restaurant} key={restaurant.id} />
         {
@@ -56,13 +59,14 @@ const Restaurant = () => {
                   return product.category === category
                 })
                 .map((product)=>{
-                  return<CardProduct product={product} key={product.id}></CardProduct>
+                  return<CardProduct product={product} key={product.id} restaurant={restaurant}></CardProduct>
                 })
               }
             </SectionProductByCategory>
           })
         }
       </CardRestaurant>
+      
     </ContainerRestaurant>
   )
 }

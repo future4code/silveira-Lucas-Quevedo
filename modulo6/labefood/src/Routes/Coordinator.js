@@ -22,3 +22,7 @@ export const goToBack = (navigate) =>{
     navigate(-1)
 }
 
+export const goToCart = (navigate) =>{
+    navigate("/cart")
+}
+
