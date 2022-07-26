@@ -9,19 +9,20 @@ import axios from 'axios'
 import { ImageRestaurant } from '../../Components/CardRestaurants/Styled'
 
 const Cart = () => {
-  const profile = useRequestData({},`${BASE_URL}/profile`)
   const [payment, setPayment] = useState("")
   const [paymentMethod] = useState(["money", "creditCard"])
   const [fullPrice, setFullPrice] = useState(0)
   const { states, setters } = useGlobal()
-  const { cart, restaurant } = states
+  const { cart, restaurant,  } = states
   const {setOrder} = setters
-  
-  
+  const [profile, setProfile] = useState({})
+ 
   const onchangePayment = (event) =>{
     setPayment(event.target.value)
+    
   } 
 
+ 
   const TotalPrice = () =>{
     let total = 0
     if(restaurant && restaurant.shipping ){
@@ -34,9 +35,28 @@ const Cart = () => {
     setFullPrice(total)
   }
 
-  useEffect(()=>{
-    TotalPrice()
-  },[])
+  
+
+const getProfile = async () =>{
+  await axios.get(`${BASE_URL}/profile`, {
+
+  headers:{
+
+    auth: window.localStorage.getItem("token")
+
+  }
+})
+  .then((res) =>{
+    console.log(res.data)
+    setProfile(res.data)
+  })
+  .catch((err) =>{
+    console.log(err.response)
+  })
+}
+
+
+
   const placeOrder = async () =>{
     const body = {
       products: cart.map((product)=>{
@@ -55,18 +75,25 @@ const Cart = () => {
     })
     .then((res)=>{
       console.log(res.data)
-      setOrder(res.data.order)
+      setters.setOrder(res.data)
+      setters.setCart([])
     })
     .catch((err) =>{
-      console.log(err.response)
+      
       alert(err.data.message)
     })
   }
+
+  useEffect(()=>{
+    TotalPrice()
+    getProfile()
+  },[])
+
   const onSubmitPlaceOrder = (event) =>{
     event.preventDefault()
     placeOrder()
   }
-  console.log(profile)
+  
   return (
     <Main>
       <MainCart >
@@ -76,7 +103,7 @@ const Cart = () => {
       <CartConfig>
         <InfoProfile>
         <p>endereço de entrega</p>
-        <p>{profile[0].user && profile[0].user.address}</p>
+        <p>{profile.user && profile.user.address}</p>
         </InfoProfile>
         </CartConfig> 
         <InfoRestaurant>
@@ -88,9 +115,6 @@ const Cart = () => {
         <CartInfo>
           {restaurant.shipping && cart.length > 0 ? cart.map((product)=>{
         return (<CardProduct
-        // name={product.name}
-        // price={product.price}
-        // photoUrl={product.photoUrl}
         key={product.id}
         product={product}
         restaurant={restaurant}
@@ -102,13 +126,13 @@ const Cart = () => {
         
      
       <div>
-        <p>Frete R$ 00,00</p>
+        <p>Frete R$ {restaurant.shipping ? restaurant.shipping : 0}</p>
       </div>
       <div>
         <p>Subtotal</p>
         <p>{fullPrice}</p>
       </div>
-      
+     
       
       <>
         <h1>Forma de pagamento</h1>

@@ -1,28 +1,41 @@
 import styled from "styled-components";
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
-export const ContainerFeed = styled.div`
-
-`
-export const CardsRestaurants = styled.div`
-padding: 0 1rem;
-`
-export const InputSearch = styled.input`
-width: 100%;
-height: 1.5rem;
-padding: 1rem 0.503rem 1rem 1.063rem;
-border-radius: 2px;
-border: solid 1px gainsboro;
-border-radius: 7px 7px 7px 7px;
-`
-export const Order = styled.nav`
-height: 2.625rem;
+export const OrderContainer = styled.div`
+display: grid;
 display: flex;
 align-items: center;
-padding: 0 1rem 0 0;
+height: 7.375rem;
+position: fixed;
+bottom: 3.062rem;
 width: 100%;
-overflow-x: auto;
+background-color: red;
+z-index: 2;
+padding: 0 0 0 2rem;
 `
-export const OrderItem = styled.button`
+export const OrderContainerSpace = styled.div`
+height: 7.375rem;
+`
+export const ClokedStyled = styled(AccessTimeIcon)`
+color: white;
+
+`
+export const BoxInform = styled.div`
+
+`
+export const Title = styled.p`
+font-family: 'Bebas Neue', cursive;
+font-size:2rem;
+font-weight: normal;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: -0.39px;
+color: black;
+padding: 0.25rem;
+`
+
+export const RestaurantName = styled.h3`
 font-family: 'Bebas Neue', cursive;
 font-size:1rem;
 font-weight: normal;
@@ -30,14 +43,17 @@ font-stretch: normal;
 font-style: normal;
 line-height: normal;
 letter-spacing: -0.39px;
-text-align: center;
-color: ${(p) => p.select ? "red" : "black"};
-background-color: transparent;
-border:none;
-outline: none;
-padding: 0 1rem;
-color: black;
-:hover{
-    color:  red;
-}
+color: white;
+padding: 0.25rem;
+`
+export const TotalPrice = styled.p`
+font-family: 'Bebas Neue', cursive;
+font-size:1rem;
+font-weight: bold;
+font-stretch: normal;
+font-style: normal;
+line-height: normal;
+letter-spacing: -0.39px;
+color: white;
+padding: 0.25rem;
 `

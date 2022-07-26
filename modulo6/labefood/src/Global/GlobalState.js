@@ -5,6 +5,7 @@ export const GlobalState = ({ children }) =>{
     const [cart, setCart] = useState([])
     const [restaurant, setRestaurant] = useState({})
     const [order, setOrder] = useState(null)
+
     
     console.log(cart)
     const addToCart = (product, quantity, newRestaurant) =>{
@@ -25,9 +26,9 @@ export const GlobalState = ({ children }) =>{
     }
     const states = { cart, restaurant, order }
     const requests = { addToCart, removeCart  }
-    const setters = { requests, setOrder }
-    console.log(cart)
+    const setters = { requests, setOrder, setCart  }
     
+  
     return <GlobalStateContext.Provider value={{states, requests, setters}}>
         {children}
     </GlobalStateContext.Provider>

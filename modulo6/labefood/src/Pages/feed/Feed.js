@@ -2,7 +2,9 @@ import axios from "axios"
 import React, { useEffect, useState } from "react"
 import {CardRestaurant} from "../../Components/CardRestaurants/CardRestaurant"
 import { Header } from "../../Components/Header/CardHeader"
+import Order from "../../Components/Menu/Order"
 import { BASE_URL } from '../../Constants/Url'
+import { useGlobal } from "../../Global/GlobalStateContext"
 import  { ContainerFeed, CardsRestaurants, InputSearch, Menu, MenuItem }  from "./Styled"
 
 const Feed = () => {
@@ -10,12 +12,14 @@ const Feed = () => {
   const [inputText, setInputText] = useState("")
   const [categoryRestaurant, setCategoryRestaurant] = useState([])
   const [buttonCategory, setButtonCategory] = useState("")
- 
+  const { setters, states  } = useGlobal()
+  const { setOrder } = setters
+  const { order } = states
   const getRestaurants =  () =>{
       
       axios.get(`${BASE_URL}/restaurants`,{
       headers: {
-        auth:localStorage.getItem("token")
+        auth:localStorage.getItem("token") 
       }
     })
     .then((res)=>{
@@ -27,6 +31,32 @@ const Feed = () => {
     })
     
   }
+
+  const getOrder = async() =>{
+      
+    await axios.get(`${BASE_URL}/active-order`,{
+
+    headers: {
+
+      auth:localStorage.getItem("token")
+
+    }
+  })
+  .then((res)=>{
+    console.log(res.data.order)
+    setOrder(res.data.order)
+    // const expires = res.data.order.expiresAt
+    // setTimeout(() =>{
+    //   getOrder()
+    // }, expires - new Date().getTime())
+  })
+  .catch((err)=>{
+    console.log(err.response)
+  })
+  
+}
+console.log(order) 
+
  const restaurantsFilter = restaurants.filter((restaurant)=>
   inputText ? restaurant.name.toLowerCase().includes(inputText.toLocaleLowerCase()):true
  )
@@ -49,6 +79,7 @@ const Feed = () => {
 
   useEffect (() =>{
     getRestaurants()
+    getOrder()
   }, [])
 
   const onChangeInputText = (event) =>{
@@ -81,6 +112,7 @@ const Feed = () => {
       </Menu>
       {restaurantsFilter}
       </CardsRestaurants>
+      {order && <Order restaurantName={order.restaurantName} totalPrice={order.totalPrice}/>}
       </ContainerFeed>
   )
 }
