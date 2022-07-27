@@ -6,6 +6,7 @@ import { BASE_URL } from '../../Constants/Url'
 import { useNavigate } from 'react-router-dom'
 import { goToFeed } from '../../Routes/Coordinator'
 import { Header } from '../../Components/Header/CardHeader'
+import { Footer } from '../../Components/Footer/Footer'
 
 const SignupAdress = () => {
   const {form, onchange, clean} = UseForm({
@@ -110,6 +111,7 @@ const SignupAdress = () => {
       />
     <ButtonAdress type='submit'>Salvar</ButtonAdress>
       </Form>
+      <Footer/>
       </Main>
   )
 }

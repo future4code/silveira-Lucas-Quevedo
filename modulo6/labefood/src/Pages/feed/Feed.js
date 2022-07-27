@@ -1,11 +1,14 @@
 import axios from "axios"
 import React, { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import {CardRestaurant} from "../../Components/CardRestaurants/CardRestaurant"
+import { Footer } from "../../Components/Footer/Footer"
 import { Header } from "../../Components/Header/CardHeader"
 import Order from "../../Components/Menu/Order"
 import { BASE_URL } from '../../Constants/Url'
 import { useGlobal } from "../../Global/GlobalStateContext"
-import  { ContainerFeed, CardsRestaurants, InputSearch, Menu, MenuItem }  from "./Styled"
+import { goToLogin } from "../../Routes/Coordinator"
+import  { ContainerFeed, CardsRestaurants, InputSearch, Menu, MenuItem, CardLogout, Buttonlogout }  from "./Styled"
 
 const Feed = () => {
   const [restaurants, setRestaurants] = useState([])
@@ -15,6 +18,8 @@ const Feed = () => {
   const { setters, states  } = useGlobal()
   const { setOrder } = setters
   const { order } = states
+
+  const navigate = useNavigate()
   const getRestaurants =  () =>{
       
       axios.get(`${BASE_URL}/restaurants`,{
@@ -31,7 +36,11 @@ const Feed = () => {
     })
     
   }
-
+  
+  const logout = () =>{
+    window.localStorage.removeItem("token")
+    goToLogin(navigate)
+  }
   const getOrder = async() =>{
       
     await axios.get(`${BASE_URL}/active-order`,{
@@ -45,17 +54,16 @@ const Feed = () => {
   .then((res)=>{
     console.log(res.data.order)
     setOrder(res.data.order)
-    // const expires = res.data.order.expiresAt
-    // setTimeout(() =>{
-    //   getOrder()
-    // }, expires - new Date().getTime())
+    const expires = res.data.order.expiresAt
+    setTimeout(() =>{
+    }, expires - new Date().getTime())
   })
   .catch((err)=>{
     console.log(err.response)
   })
   
 }
-console.log(order) 
+
 
  const restaurantsFilter = restaurants.filter((restaurant)=>
   inputText ? restaurant.name.toLowerCase().includes(inputText.toLocaleLowerCase()):true
@@ -92,7 +100,9 @@ console.log(order)
     <ContainerFeed key={restaurants.id}>
       <Header title={"ifuture"}/>
       <CardsRestaurants>
-      
+      <CardLogout>
+        <Buttonlogout onClick={() => logout ()}>Logout</Buttonlogout>
+      </CardLogout>
       <InputSearch
       value={inputText}
       onChange={onChangeInputText}
@@ -113,6 +123,7 @@ console.log(order)
       {restaurantsFilter}
       </CardsRestaurants>
       {order && <Order restaurantName={order.restaurantName} totalPrice={order.totalPrice}/>}
+      <Footer/>
       </ContainerFeed>
   )
 }

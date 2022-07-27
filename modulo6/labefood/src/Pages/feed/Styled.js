@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ContainerFeed = styled.div`
-
+height: auto;
 `
 export const CardsRestaurants = styled.div`
 padding: 0 1rem;
@@ -40,4 +40,15 @@ color: black;
 :hover{
     color:  red;
 }
+`
+
+export const CardLogout = styled.div`
+display: flex;
+justify-content:end;
+`
+export const Buttonlogout = styled.button`
+color: black;
+font-family: 'Bebas Neue', cursive;
+background-color: transparent;
+border: transparent;
 `

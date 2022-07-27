@@ -8,6 +8,7 @@ import { BASE_URL } from '../../Constants/Url';
 import { goToSignupAdress } from '../../Routes/Coordinator';
 import { useNavigate } from 'react-router-dom';
 import {Header} from "../../Components/Header/CardHeader"
+import { Footer } from '../../Components/Footer/Footer';
 const Signup = () => {
   const {form, onchange, clean} = UseForm({
     "name": "",
@@ -105,6 +106,7 @@ const Signup = () => {
       </IconButton>
       <ButtonSignup type='submit'>Cadastrar</ButtonSignup>
       </Form>
+      <Footer/>
       </Main>
   )
 }

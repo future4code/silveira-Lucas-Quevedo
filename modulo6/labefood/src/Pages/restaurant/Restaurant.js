@@ -7,6 +7,7 @@ import { CardRestaurantDetails } from '../../Components/CardRestaurantDetails/Ca
 import { CardProduct } from '../../Components/CardProduct/CardProduct'
 import { Header } from '../../Components/Header/CardHeader'
 import { goToCart } from '../../Routes/Coordinator'
+import { Footer } from '../../Components/Footer/Footer'
 
 const Restaurant = () => {
   const navigate = useNavigate()
@@ -46,7 +47,6 @@ const Restaurant = () => {
   return (
     <ContainerRestaurant>
       <Header title={"Restaurante"} back={true} />
-      <button onClick={() => goToCart(navigate)}>Carrinho</button>
       <CardRestaurant>
         <CardRestaurantDetails restaurant={restaurant} key={restaurant.id} />
         {
@@ -66,7 +66,7 @@ const Restaurant = () => {
           })
         }
       </CardRestaurant>
-      
+      <Footer/>
     </ContainerRestaurant>
   )
 }

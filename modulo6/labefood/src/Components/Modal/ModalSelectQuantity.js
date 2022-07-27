@@ -5,8 +5,6 @@ import { BoxModal, ButtonAddCard, SelectQuantity, Title } from './Styled';
 export const ModalSelectQuantity = ({open, setOpen, choiceQuantity}) => {
   const [quantity, setQuantity] = useState(1)
 
-  
-  console.log(quantity)
   return (
     <div>
         

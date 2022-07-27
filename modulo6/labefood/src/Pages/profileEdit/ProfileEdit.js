@@ -1,9 +1,12 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { Footer } from '../../Components/Footer/Footer'
 import { Header } from '../../Components/Header/CardHeader'
 import { BASE_URL } from '../../Constants/Url'
 import { UseForm } from '../../Hooks/UseForm'
-import { ButtonProfileEdit, Form, InputMaterial, Main } from './Styled'
+import { goToProfile } from '../../Routes/Coordinator'
+import { ButtonProfileEdit, DivHeader, Form, InputMaterial, Main } from './Styled'
 
 const ProfileEdit = () => {
     const { form, onChange, clean } = UseForm({
@@ -14,7 +17,7 @@ const ProfileEdit = () => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [cpf, setCpf] = useState("")
-
+    const navigate = useNavigate()
     // const [profileEdit, setProfileEdit] = useState({})
     const editPerson = async () => {
         await axios.get(`${BASE_URL}/profile`, {
@@ -24,7 +27,6 @@ const ProfileEdit = () => {
         })
             .then((res) => {
                 console.log(res.data.user)
-                //   setProfileEdit(res.data.user)
                 setName(res.data.user.name)
                 setEmail(res.data.user.email)
                 setCpf(res.data.user.cpf)
@@ -41,7 +43,7 @@ const ProfileEdit = () => {
             cpf,
 
         }
-        await axios.put(`${BASE_URL}/profile`,body, {
+        await axios.put(`${BASE_URL}/profile`, body, {
             headers: {
                 auth: localStorage.getItem("token")
             }
@@ -49,9 +51,8 @@ const ProfileEdit = () => {
         })
             .then((res) => {
                 console.log(res.data.user)
-                setName(res.data.user.name)
-                setEmail(res.data.user.email)
-                setCpf(res.data.user.cpf)
+                // setProfileEdit(res.data.user)
+               
             })
             .catch((err) => {
                 console.log(err.response)
@@ -76,14 +77,16 @@ const ProfileEdit = () => {
         }
     }
 
-    const onSubmitForm = (event) => {
-        event.preventDefault()
+    const onSubmitForm = () => {
         editProfile()
+        goToProfile(navigate)
 
     }
     return (
         <Main>
+            
             <Header title={"Editar"} back={true} />
+        
             <Form onSubmit={onSubmitForm}>
                 <InputMaterial
                     id="standard-basic"
@@ -118,6 +121,7 @@ const ProfileEdit = () => {
 
                 <ButtonProfileEdit type='submit'>Salvar</ButtonProfileEdit>
             </Form>
+            <Footer/>
         </Main>
     )
 }

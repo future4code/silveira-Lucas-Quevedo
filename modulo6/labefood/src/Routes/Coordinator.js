@@ -32,3 +32,6 @@ export const goToProfile = (navigate) =>{
 export const goToProfileEdit = (navigate, id) =>{
     navigate(`/profile/${id}`)
 }
+export const goToAdressEdit = (navigate, id) =>{
+    navigate(`/adressEdit/${id}`)
+}

@@ -7,6 +7,9 @@ import { CardProduct } from '../../Components/CardProduct/CardProduct'
 import { useGlobal } from '../../Global/GlobalStateContext'
 import axios from 'axios'
 import { ImageRestaurant } from '../../Components/CardRestaurants/Styled'
+import { goToFeed } from '../../Routes/Coordinator'
+import { useNavigate } from 'react-router-dom'
+import { Footer } from '../../Components/Footer/Footer'
 
 const Cart = () => {
   const [payment, setPayment] = useState("")
@@ -16,6 +19,7 @@ const Cart = () => {
   const { cart, restaurant,  } = states
   const {setOrder} = setters
   const [profile, setProfile] = useState({})
+  const navigate = useNavigate()
  
   const onchangePayment = (event) =>{
     setPayment(event.target.value)
@@ -55,19 +59,19 @@ const getProfile = async () =>{
   })
 }
 
-
-
   const placeOrder = async () =>{
+  
     const body = {
       products: cart.map((product)=>{
-        return([{
+        return({
           id:product.id,
           quantity: product.quantity
-      }])
+      })
       
       }),
       paymentMethod:payment
     }
+    console.log(body)
     await axios.post(`${BASE_URL}/restaurants/${restaurant.id}/order`, body,{
       headers:{
         auth: window.localStorage.getItem("token")
@@ -79,8 +83,8 @@ const getProfile = async () =>{
       setters.setCart([])
     })
     .catch((err) =>{
-      
-      alert(err.data.message)
+      console.log(err.response)
+      alert(err.response.message)
     })
   }
 
@@ -89,16 +93,16 @@ const getProfile = async () =>{
     getProfile()
   },[])
 
-  const onSubmitPlaceOrder = (event) =>{
-    event.preventDefault()
+  const onSubmitPlaceOrder = () =>{
+    console.log("entrei")
     placeOrder()
+    
   }
   
   return (
     <Main>
       <MainCart >
         <Header title={"Meu carrinho"}back={true}/>
-        
       </MainCart>
       <CartConfig>
         <InfoProfile>
@@ -136,7 +140,7 @@ const getProfile = async () =>{
       
       <>
         <h1>Forma de pagamento</h1>
-        <Form onSubmit={onSubmitPlaceOrder}>
+        <Form >
           {paymentMethod.map((key)=>{
             return(
               <div
@@ -154,7 +158,7 @@ const getProfile = async () =>{
             )
           })}
       
-        <ButtonCart>Confirmar</ButtonCart>
+        <ButtonCart onClick={() => onSubmitPlaceOrder()}>Confirmar</ButtonCart>
         </Form>
       </>
       </Main>

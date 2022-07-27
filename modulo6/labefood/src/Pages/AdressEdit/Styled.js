@@ -6,8 +6,9 @@ export const InputMaterial = styled(TextField)`
 width: 100%;
 `
 export const Main = styled.div`
+padding: 10px;
 width: 100%;
-height: 80vh;
+height: 100vh;
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -27,7 +28,7 @@ height: 50%;
 width: 80%;
 justify-content: space-evenly;
 `
-export const ButtonProfileEdit=styled(Button)`
+export const ButtonAdress=styled(Button)`
 &&{
     background-color: red;
     color: white;
@@ -39,9 +40,6 @@ export const ButtonProfileEdit=styled(Button)`
         color:black
     }
 }
-`
-export const DivHeader = styled.div`
-margin-top: 30px;
 `
 
 export const DivPassword = styled.div`

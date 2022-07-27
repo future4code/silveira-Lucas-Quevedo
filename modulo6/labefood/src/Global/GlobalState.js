@@ -6,8 +6,6 @@ export const GlobalState = ({ children }) =>{
     const [restaurant, setRestaurant] = useState({})
     const [order, setOrder] = useState(null)
 
-    
-    console.log(cart)
     const addToCart = (product, quantity, newRestaurant) =>{
         console.log(newRestaurant.id, restaurant.id)
         if(newRestaurant.id === restaurant.id){

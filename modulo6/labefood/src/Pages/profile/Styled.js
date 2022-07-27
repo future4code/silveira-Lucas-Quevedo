@@ -16,20 +16,23 @@ export const Information = styled.div`
 text-align: center;
 flex-direction: column;
 height: 100%;
+width: auto;
 `
 export const InformPerson = styled.div`
 height: 20%;
 display: flex;
 justify-content: space-between;
+align-items: center;
+padding: -50px;
 div:nth-child(1){
     width: 80%;
-    padding: 10px;
+    padding: 30px;
     display: flex;
     flex-direction:column;
-    justify-content: space-around;
+    
 }
 div:nth-child(2){
-    height: 10%;
+    height: 20%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -41,6 +44,7 @@ height: 10%;
 background-color: gainsboro;
 display: flex;
 justify-content: space-around;
+align-items: center;
 div:nth-child(1){
     width: 80%;
     padding: 10px;
@@ -49,7 +53,7 @@ div:nth-child(1){
     justify-content: space-around;
 }
 div:nth-child(2){
-    height: 10%;
+    height: 40%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
