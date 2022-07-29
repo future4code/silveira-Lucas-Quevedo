@@ -6,8 +6,8 @@ import { inputCreateProductDTO } from "../types/inputCreateProductsDTO"
 export  class ProductsBusiness  {
     product = async (input:inputCreateProductDTO) =>{
     try {
-            const { name, price, type, quantity} = input
-            if(!name || !price || !type || !quantity){
+            const { name, tags } = input
+            if(!name || !tags){
                 throw new Error("Please, fill in all the fiels!")
             }
             const id = new IdGenerator().generate();
@@ -15,9 +15,7 @@ export  class ProductsBusiness  {
             const product = {
                 id,
                 name, 
-                price,
-                type,
-                quantity
+                tags
             }
             await new ProductDataBase().createProduct(product)
         

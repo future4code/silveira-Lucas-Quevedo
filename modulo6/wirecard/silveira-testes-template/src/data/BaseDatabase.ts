@@ -17,7 +17,7 @@ export default class BaseDataBase {
       },
    });
 
-   public static async destroyConnection(): Promise<void> {
-      await BaseDataBase.connection.destroy();
-   }
+   // public static async destroyConnection(): Promise<void> {
+   //    await BaseDataBase.connection.destroy();
+   // }
 }

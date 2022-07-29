@@ -5,8 +5,9 @@
    "main": "index.js",
    "scripts": {
       "test": "clear && echo \"Running tests...\" && jest",
-      "start": "tsc && node --inspect ./build/src/index.js",
-      "dev": " ts-node-dev ./src/index.ts"
+      "start": "tsc && node ./build/src/controller/index.js",
+      "dev": " ts-node-dev ./src/controller/index.ts",
+      "migrations": "ts-node-dev ./build/src/data/Migrations.js"
    },
    "author": "Labenu",
    "license": "ISC",

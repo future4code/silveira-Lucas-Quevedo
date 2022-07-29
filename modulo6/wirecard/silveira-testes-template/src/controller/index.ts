@@ -1,6 +1,6 @@
 import express from "express";
 import {AddressInfo} from "net";
-import { userRouter } from "./router/UserRouter";
+import { userRouter } from "../router/UserRouter";
 
 const app = express();
 
