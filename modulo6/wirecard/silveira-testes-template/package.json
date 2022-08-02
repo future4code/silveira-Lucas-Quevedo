@@ -7,7 +7,7 @@
       "test": "clear && echo \"Running tests...\" && jest",
       "start": "tsc && node ./build/src/controller/index.js",
       "dev": " ts-node-dev ./src/controller/index.ts",
-      "migrations": "ts-node-dev ./build/src/data/Migrations.js"
+      "migrations": "tsc && node ./build/src/data/Migrations.js"
    },
    "author": "Labenu",
    "license": "ISC",
