@@ -1,6 +1,6 @@
 import Authenticator from "../services/Authenticator";
 import { IdGenerator } from "../services/idGenerator";
-import { inputGetProductsByIdDTO, inputGetProductsByNameDTO, inputGetProductsByTagsDTO } from "../types/inputGetProductsDTO";
+import { inputGetProductsByIdDTO, inputGetProductsByNameDTO, inputGetProductsByTagsDTO} from "../types/inputGetProductsDTO";
 import BaseDataBase from "./BaseDatabase"
 
 
@@ -36,36 +36,36 @@ export class ProductDataBase extends BaseDataBase {
         }
     }
 
-    GetProductById = async (id:inputGetProductsByIdDTO) =>{
+    GetProductById = async (id:string):Promise<inputGetProductsByIdDTO> =>{
         try {
-            console.log("id data",{id})
-            const result = await BaseDataBase.connection("amaro10")
+            const result = await BaseDataBase.connection
             .select("*")
-            .where({id})
-            console.log("result data",result[0])
+            .from("amaro10")
+            .where({ id })
+            return result[0]
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message);
         }
     }
 
-    GetProductByName = async (name:inputGetProductsByNameDTO) =>{
+    GetProductByName = async (name:string):Promise<inputGetProductsByNameDTO> =>{
         try {
-            console.log(name)
-            await BaseDataBase.connection("amaro10")
+          const result = await BaseDataBase.connection
             .select("*")
-            .where({name})
-            
+            .from("amaro10")
+            .where({ name })
+            return result[0]
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message);
         }
 }
-GetProductByTags = async (tags:inputGetProductsByTagsDTO) =>{
+GetProductByTags = async (tags:string):Promise<inputGetProductsByTagsDTO> =>{
     try {
         const data = await BaseDataBase.connection
         .select("*")
         .from("amaro_search10")
-        .where({ tags })
-        return data
+        .where({tags})
+        return data[0]
     } catch (error:any) {
         throw new Error(error.sqlMessage || error.message);
     }

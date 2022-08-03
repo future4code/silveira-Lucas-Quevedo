@@ -2,7 +2,8 @@ import { ProductDataBase } from "../data/ProductDataBase";
 import Authenticator from "../services/Authenticator";
 import { IdGenerator } from "../services/idGenerator";
 import { inputCreateProductDTO } from "../types/inputCreateProductsDTO"
-import { inputGetProductsByIdDTO, inputGetProductsByNameDTO, inputGetProductsByTagsDTO } from "../types/inputGetProductsDTO";
+import { inputGetProductsByIdDTO, inputGetProductsByNameDTO } from "../types/inputGetProductsDTO";
+// import {  inputGetProductsDTO } from "../types/inputGetProductsDTO";
 
 
 export  class ProductsBusiness  {
@@ -34,12 +35,11 @@ getProductById = async (input:inputGetProductsByIdDTO) =>{
     throw new Error("Id incorrect!")
 }
 
-console.log(id)
-const result = await new ProductDataBase().GetProductById({id:id}) 
-// return result
-console.log("business",result)
+console.log("business input",id)
+const result = await new ProductDataBase().GetProductById(id) 
+return result
 } catch (error:any) {
-    throw new Error( error.messgae || error.sqlMessage);
+    throw new Error( error.message || error.sqlMessage);
     
  }
     
@@ -47,29 +47,31 @@ console.log("business",result)
 
 getProductByName = async (input:inputGetProductsByNameDTO) =>{
     try {
-        const name = input
+        const { name } = input
         if(!name){
            throw new Error("Name incorrect!")
        }
 
-        await new ProductDataBase().GetProductByName(name)
-    
+       const result = await new ProductDataBase().GetProductByName(name)
+       return result
     } catch (error:any) {
-        throw new Error( error.messgae || error.sqlMessage);
+        throw new Error( error.message || error.sqlMessage);
     }
 }
 
-getProductByTags = async (input:inputGetProductsByTagsDTO) =>{
+getProductByTags = async (input:string) =>{
     try {
-        const tags = input
+
+        const { tags } = input as any
         if(!tags){
-           throw new Error("tags incorrect!")
+           throw new Error("Tags invalid!")
        }
 
-       const result = await new ProductDataBase().GetProductByTags(tags)
-       return result[0]
+       const result = await new ProductDataBase().GetProductByTags( tags )
+       console.log(result)
+       return result
     } catch (error:any) {
-        throw new Error( error.messgae || error.sqlMessage);
+        throw new Error( error.message || error.sqlMessage);
     }
 }
 }
