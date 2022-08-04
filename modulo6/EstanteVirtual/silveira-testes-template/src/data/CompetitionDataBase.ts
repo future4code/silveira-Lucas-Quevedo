@@ -2,9 +2,10 @@ import { connection } from "..";
 import BaseDataBase from "./BaseDataBase"
 
 export class CompetitionDataBase {
-    CreateCompetition = async (input:any):Promise<any> =>{
+    CreateCompetition = async (input:any) =>{
         try {
-           const result = await connection("createCompetition")
+            console.log("DataBase",input)
+            await connection("createCompetition")
             .insert({
                 id:input.id,
                 competicao:input.competicao,
@@ -13,7 +14,7 @@ export class CompetitionDataBase {
                 unidade:input.unidade
             })
             // .into("createCompetition")
-            return result
+            
             
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message);

@@ -6,7 +6,7 @@ export class CompetitionBusiness {
     Competition = async (input: inpuCreateCompetition) => {
         try {
             const { competicao, atleta, value, unidade } = input
-
+            
             if (!competicao || !atleta || !value || !unidade) {
                 throw new Error("Please, fill in all the fiels!");
             }
@@ -21,7 +21,8 @@ export class CompetitionBusiness {
             }
 
 
-            await new CompetitionDataBase().CreateCompetition(index)
+           const result = await new CompetitionDataBase().CreateCompetition(index)
+            console.log("Business",result)
         } catch (error: any) {
             throw new Error(error.message || error.sqlMessage);
 

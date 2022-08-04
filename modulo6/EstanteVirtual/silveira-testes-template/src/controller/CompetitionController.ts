@@ -13,8 +13,9 @@ export class CompetitionController {
                 value,
                 unidade
             }
-
-            await new CompetitionBusiness().Competition(input)
+           
+          const result = await new CompetitionBusiness().Competition(input)
+          console.log("controller", result)
             res.status(201).send({message:"Competition was created successfully!"})
         } catch (error:any) {
             res.status(400).send({message:error.message})

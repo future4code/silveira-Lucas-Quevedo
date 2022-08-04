@@ -1,0 +1,11 @@
+POST http://localhost:3003/createCompetition
+Content-Type: application/json
+
+{
+
+  "competicao": "100m classificatoria 1", 
+  "atleta": "Joao das Neves",
+  "value": "10.234", 
+  "unidade": "s"
+
+}
