@@ -1,13 +1,21 @@
 import { CompetitionDataBase } from "../data/CompetitionDataBase";
 import { IdGenerator } from "../services/IdGenerator";
-import { inpuCreateCompetition, inputCreateCompetitionData } from "../Types/inputCreateCompetition";
+import { Competition, getId, inpuCreateCompetition, inputCreateCompetitionData } from "../Types/inputCreateCompetition";
 
 export class CompetitionBusiness {
     Competition = async (input: inpuCreateCompetition) => {
         try {
-            const { competicao, atleta, value, unidade } = input
+            const { competicao, condicao } = input
+
+            if (!competicao) {
+                throw new Error("Competition icorrect!")
+            }
+            if (!condicao) {
+               throw new Error(Competition.TERMINOU);
+            }
             
-            if (!competicao || !atleta || !value || !unidade) {
+            
+            if (!competicao || !condicao) {
                 throw new Error("Please, fill in all the fiels!");
             }
 
@@ -15,17 +23,34 @@ export class CompetitionBusiness {
            const index: inputCreateCompetitionData = {
                 id,
                 competicao,
-                atleta,
-                value,
-                unidade
+                condicao
             }
 
 
-           const result = await new CompetitionDataBase().CreateCompetition(index)
-            console.log("Business",result)
+           await new CompetitionDataBase().CreateCompetition(index)
+
         } catch (error: any) {
             throw new Error(error.message || error.sqlMessage);
 
         }
+    }
+
+    putCompetition = async (input:getId) =>{
+        try {
+            const { id } = input 
+            console.log(input)
+        if(!id){
+            throw new Error("Id incorrect!");
+        }
+      const competitonDB = await new CompetitionDataBase().getCompetition(id)
+        if(!competitonDB){
+            throw new Error("invalid competition!");
+        }
+        await new CompetitionDataBase().updateCompetition(id) 
+            return competitonDB
+        } catch (error:any) {
+            throw new Error(error.message || error.sqlMessage);
+        }
+        
     }
 }

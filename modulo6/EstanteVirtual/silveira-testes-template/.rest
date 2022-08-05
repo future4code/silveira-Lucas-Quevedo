@@ -3,9 +3,17 @@ Content-Type: application/json
 
 {
 
-  "competicao": "100m classificatoria 1", 
-  "atleta": "Joao das Neves",
-  "value": "10.234", 
-  "unidade": "s"
+ "competicao": "Dardo semifinal", 
+  "condicao":"Competição em andamento"
+
+}
+
+###
+GET http://localhost:3003/getCompetition
+Content-Type: application/json
+
+{
+
+  "id":"3fe36561-4166-4868-9dbf-49ade256dfa0"
 
 }

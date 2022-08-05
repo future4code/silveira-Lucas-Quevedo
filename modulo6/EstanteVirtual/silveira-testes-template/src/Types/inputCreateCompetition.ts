@@ -1,14 +1,20 @@
+export enum Competition{
+    EM_ANDAMENTO="Competição em andamento",
+    TERMINOU="Competição terminou",
+    
+}
 export type inpuCreateCompetition ={
     competicao:string,
-    atleta:string,
-    value:string,
-    unidade:string
+    condicao:Competition.EM_ANDAMENTO
 }
 
+
 export type inputCreateCompetitionData ={
-    id:string
+    id:string,
     competicao:string,
-    atleta:string,
-    value:string,
-    unidade:string
+    condicao:string
+}
+
+export type getId ={
+    id:string
 }

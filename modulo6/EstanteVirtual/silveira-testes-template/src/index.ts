@@ -1,26 +1,26 @@
-import express, { Express } from "express";
-import knex from "knex";
+import express, { Express, Router } from "express";
 import cors from "cors";
-import dotenv from "dotenv";
 import { AddressInfo } from "net";
-import { CompetitionDataBase } from "./data/CompetitionDataBase";
+import { CompetitionController } from "./controller/CompetitionController";
 
-dotenv.config();
+// dotenv.config();
 
-export const connection = knex({
-	client: "mysql",
-	connection: {
-    host: process.env.DB_HOST,
-    port: 3306,
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_SCHEMA
-  }
-});
+// export const connection = knex({
+// 	client: "mysql",
+// 	connection: {
+//     host: process.env.DB_HOST,
+//     port: 3306,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PASSWORD,
+//     database: process.env.DB_SCHEMA
+//   }
+// });
 
 const app: Express = express();
 app.use(express.json());
 app.use(cors());
+
+// app.use("/users", Router);
 
 const server = app.listen(process.env.PORT || 3003, () => {
     if (server) {
@@ -31,4 +31,5 @@ const server = app.listen(process.env.PORT || 3003, () => {
     }
 });
 
-app.post("/createCompetition", new CompetitionDataBase().CreateCompetition)
+app.post("/createCompetition", new CompetitionController().createCompetition)
+app.get("/getCompetition", new CompetitionController().putCompetitionId)

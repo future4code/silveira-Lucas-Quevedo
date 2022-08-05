@@ -1,6 +1,8 @@
 import express  from "express";
-import { CompetitionDataBase } from "../data/CompetitionDataBase";
+import { CompetitionController } from "../controller/CompetitionController";
 
-// export const Router = express.Router()
 
-// Router.post("/createCompetition", new CompetitionDataBase())
+export const Router = express.Router()
+
+Router.post("/createCompetition", new CompetitionController().createCompetition)
+Router.post("/getId", new CompetitionController().putCompetitionId)
