@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { CompetitionBusiness } from "../business/CompetitionBusiness";
-import { getId, inpuCreateCompetition } from "../Types/inputCreateCompetition";
+import { inpuCreateCompetition } from "../Types/inputCompetition";
 
 export class CompetitionController {
     createCompetition = async (req:Request, res:Response) =>{
         try {
-            const {competicao, condicao }:inpuCreateCompetition = req.body
+            const { competicao, condicao }:inpuCreateCompetition = req.body
 
             const input:inpuCreateCompetition = {
                 competicao,
@@ -22,11 +22,7 @@ export class CompetitionController {
     putCompetitionId = async (req:Request, res:Response) =>{
         try {
             const id = req.body
-            console.log(id)
-
-            // const input:getId={
-            //     id
-            // }
+            
              await new CompetitionBusiness().putCompetition(id)
             res.status(200).send({message:"competition finish"})
         } catch (error:any) {

@@ -9,11 +9,45 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3003/getCompetition
+PUT http://localhost:3003/getCompetition
 Content-Type: application/json
 
 {
 
   "id":"3fe36561-4166-4868-9dbf-49ade256dfa0"
+
+}
+
+###
+POST http://localhost:3003/createAthlete
+Content-Type: application/json
+
+{
+
+  "name":"Lucas Moraes de Quevedo"
+
+}
+
+###
+POST http://localhost:3003/resgitration
+Content-Type: application/json
+
+{
+  "id_competition":"3fe36561-4166-4868-9dbf-49ade256dfa0",
+  "id_athlete":"a46ab40a-930b-42e6-a5ee-adee2fb79f9f",
+  "value":"s",
+  "unity":8.5
+
+}
+
+
+###
+GET http://localhost:3003/result
+Content-Type: application/json
+
+
+{
+
+"id_competition":"3fe36561-4166-4868-9dbf-49ade256dfa0"
 
 }

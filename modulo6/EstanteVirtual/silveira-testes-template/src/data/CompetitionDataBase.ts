@@ -1,5 +1,3 @@
-// import { connection } from "..";
-import { getId } from "../Types/inputCreateCompetition";
 import BaseDataBase from "./BaseDataBase";
 
 
@@ -40,5 +38,17 @@ export class CompetitionDataBase extends BaseDataBase {
         } catch (error:any) {
             throw new Error(error.sqlMessage || error.message);
         }
+    }
+
+    getCompetitionName = async (competicao:string) =>{
+        try {
+            const result = await BaseDataBase.connection("createCompetition")
+            .select("competicao")
+            .where({competicao})
+            return result[0]
+        } catch (error:any) {
+            throw new Error(error.sqlMessage || error.message);
+        }
+       
     }
 }

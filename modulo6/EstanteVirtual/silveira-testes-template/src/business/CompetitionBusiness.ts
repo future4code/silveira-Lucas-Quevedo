@@ -1,6 +1,6 @@
 import { CompetitionDataBase } from "../data/CompetitionDataBase";
 import { IdGenerator } from "../services/IdGenerator";
-import { Competition, getId, inpuCreateCompetition, inputCreateCompetitionData } from "../Types/inputCreateCompetition";
+import { Competition, getId, inpuCreateCompetition, inputCreateCompetitionData } from "../Types/inputCompetition";
 
 export class CompetitionBusiness {
     Competition = async (input: inpuCreateCompetition) => {
@@ -38,7 +38,7 @@ export class CompetitionBusiness {
     putCompetition = async (input:getId) =>{
         try {
             const { id } = input 
-            console.log(input)
+           
         if(!id){
             throw new Error("Id incorrect!");
         }
