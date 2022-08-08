@@ -10,8 +10,8 @@ createAthlete = async (req:Request, res:Response) =>{
             const input:createAthlete ={
                 name
             }
-            await new AthleteBusiness().athlete(input)
-            res.status(201).send({message:"athlete created successfully!"})
+           const result = await new AthleteBusiness().athlete(input)
+            res.status(201).send({message:"athlete created successfully!", result})
         } catch (error:any) {
             res.status(400).send({message:error.message || error.sqlMessage})
         }

@@ -15,5 +15,13 @@ export type inputRegistration={
  }
 
  export type competitionId ={
-    id_competition:string
+    id_competition:string,
+    
  }
+export type resultCompetitionById={
+   id: string
+   competicao: string,
+   value: number,
+   unity: UNITY
+}
+ 

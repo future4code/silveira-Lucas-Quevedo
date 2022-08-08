@@ -26,3 +26,9 @@ export type getId ={
     id:string
 }
 
+export type CompetitionMock = {
+    id:string,
+    competicao:string,
+    condicao:string
+
+}

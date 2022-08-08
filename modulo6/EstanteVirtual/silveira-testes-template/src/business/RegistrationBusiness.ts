@@ -26,7 +26,6 @@ export class RegistrationBusiness{
                     }
         
             const result =await new ResgitrationDataBase().registrationData(registration)
-            console.log(result)
             return result
             
                 
@@ -36,17 +35,14 @@ export class RegistrationBusiness{
         }
     }
 
-    getResultById = async (input:any) =>{
+    getResultById = async (input:competitionId) =>{
         try {
             const { id_competition } = input
             if(!id_competition){
                 throw new Error("fill in the fields correctly")
             }
-            // const inputId:competitionId={
-            //     id_competition
-            // }
-            console.log(id_competition)
-            const result = await new ResgitrationDataBase().getIdData(id_competition) 
+          
+            const result = await new ResgitrationDataBase().getIdData(id_competition)
            
             return result
         } catch (error:any) {

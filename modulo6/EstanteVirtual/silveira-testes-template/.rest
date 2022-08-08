@@ -1,53 +1,58 @@
+
+### Cadastrar competição
 POST http://localhost:3003/createCompetition
 Content-Type: application/json
 
 {
 
- "competicao": "Dardo semifinal", 
+ "competicao": "100m Rasos", 
   "condicao":"Competição em andamento"
 
 }
 
-###
-PUT http://localhost:3003/getCompetition
+
+### Encerrar competição
+PUT http://localhost:3003/finishCompetition
 Content-Type: application/json
 
 {
 
-  "id":"3fe36561-4166-4868-9dbf-49ade256dfa0"
+  "id":"d8198580-dfa9-46b4-a0ea-43617fb7e5e9"
 
 }
 
-###
+
+### Criar atleta
 POST http://localhost:3003/createAthlete
 Content-Type: application/json
 
 {
 
-  "name":"Lucas Moraes de Quevedo"
+  "name":"Jõao"
 
 }
 
-###
+
+### Registrar resultados
 POST http://localhost:3003/resgitration
 Content-Type: application/json
 
 {
-  "id_competition":"3fe36561-4166-4868-9dbf-49ade256dfa0",
-  "id_athlete":"a46ab40a-930b-42e6-a5ee-adee2fb79f9f",
+  "id_competition":"8a77ce20-22a7-49d6-adce-4a0d9d639324",
+  "id_athlete":"17902679-da1c-4fa4-ab95-614d458e43ae",
   "value":"s",
-  "unity":8.5
+  "unity":8.8
 
 }
 
 
-###
+### Buscar resultados
 GET http://localhost:3003/result
 Content-Type: application/json
 
 
 {
 
-"id_competition":"3fe36561-4166-4868-9dbf-49ade256dfa0"
+"id_competition":"8a77ce20-22a7-49d6-adce-4a0d9d639324"
 
 }

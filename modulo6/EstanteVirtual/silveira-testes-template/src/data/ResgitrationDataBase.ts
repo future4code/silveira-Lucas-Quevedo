@@ -1,5 +1,5 @@
 import { TypeCompetition } from "../Types/inputCompetition";
-import { competitionId } from "../Types/inputRegistration";
+import { resultCompetitionById } from "../Types/inputRegistration";
 import BaseDataBase from "./BaseDataBase";
 
 export class ResgitrationDataBase extends BaseDataBase{
@@ -16,25 +16,31 @@ export class ResgitrationDataBase extends BaseDataBase{
         }
     }
 
-    getIdData = async(id_competition:competitionId) =>{
+    getIdData = async(id_competition:string) =>{
         try {
-           const [result] =await BaseDataBase.connection("registration")
+           
+           const [result]:resultCompetitionById[] =await BaseDataBase.connection
             .select("*")
-            .where({id_competition})
-            // .join("registration","registration.id_competition", "createCompetition")
-
-            if(result.name === TypeCompetition.DARDO){
-                const result = await BaseDataBase.connection("registration")
+            .from("registration")
+            .where({ id_competition }) 
+            .join("createCompetition","registration.id_competition", "createCompetition.id")
+            
+          
+            
+            if(result.competicao === TypeCompetition.DARDO){
+                const result:resultCompetitionById[] = await BaseDataBase.connection("registration")
                 .select("registration.id", "athlete.name", "registration.value", "registration.unity")
                 .where({id_competition})
+                .join("athlete", "registration.id_athlete", "athlete.id")
                 return result
-            }else if(result.name === TypeCompetition.CEM_METROS){
-                const result = await BaseDataBase.connection("registration")
+            }else if(result.competicao === TypeCompetition.CEM_METROS){
+                const result:resultCompetitionById[] = await BaseDataBase.connection("registration")
                 .select("registration.id", "athlete.name", "registration.value", "registration.unity")
                 .where({id_competition})
-                .join("athlete", "registration.id_athelete", "athlete.id")
+                .join("athlete", "registration.id_athlete", "athlete.id")
                 .orderBy("resgitration.value")
-                return result
+                    return result
+                    
             }
         } catch (error:any) {
             throw new Error(error.message || error.sqlMessage);

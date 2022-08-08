@@ -12,8 +12,8 @@ export class CompetitionController {
                 condicao
             }
            
-           await new CompetitionBusiness().Competition(input)
-            res.status(201).send({message:"Competition was created successfully!"})
+           const result = await new CompetitionBusiness().Competition(input)
+            res.status(201).send({message:"Competition was created successfully!",result:result})
         } catch (error:any) {
             res.status(400).send({message:error.message})
         }
