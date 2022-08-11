@@ -1,15 +1,20 @@
 import { ClientDataBase } from "../data/ClientDataBase";
-import { authenticationDataId } from "../model/AuthenticationData";
-import { Client, inputLoginDTO } from "../model/Client";
+import { Client, ClientInputDTO, inputLoginDTO } from "../model/Client";
 import Authenticator from "../services/Authenticator";
 import { HashGenerator } from "../services/hashGenerator";
 import { IdGenerator } from "../services/idGenerator";
 
 export class ClientBusiness{
-    create = async (input:any) =>{
+    constructor(
+        private IdGenerator:IdGenerator,
+        private HashGenerator:HashGenerator,
+        private Authenticator:Authenticator,
+        private ClientDataBase:ClientDataBase
+    ){}
+    create = async (name:string, email:string, password:string, cpf:string):Promise<Client> =>{
        try {
-        const {name, email, cpf, password} = input
-        if(!name || !email || !cpf || !password){
+
+        if(!name || !email ||  !password || !cpf){
             throw new Error("fill in the fields correctly!");
         }
         if (email.indexOf("@") === -1) {
@@ -18,9 +23,9 @@ export class ClientBusiness{
         if (password.length < 6) {
             throw new Error("Password should have at least 6 characters");
         }
-        const id = new IdGenerator().generate()
+        const id =  this.IdGenerator.generate()
 
-        const hashPassword = new HashGenerator().hash(password)
+        const hashPassword = this.HashGenerator.hash(password)
 
         const inputBusiness =  new Client(
             id,
@@ -30,9 +35,9 @@ export class ClientBusiness{
             cpf
         )
 
-        await new ClientDataBase().insertClient(inputBusiness)
-        const token = new Authenticator().generateToken({id}) 
-       return token
+        await this.ClientDataBase.insertClient(inputBusiness)
+        const token = this.Authenticator.generateToken({id}) 
+       return token as any
         
        } catch (error:any) {
         throw new Error(error.message || error.sqlMessage);
@@ -41,15 +46,15 @@ export class ClientBusiness{
         
     }
 
-    login = async (input:inputLoginDTO) =>{
+    login = async (email:string, password:string) =>{
         try {
-            const {email, password} = input
+            
             if(!email || !password){
             throw new Error("fill in the fields correctly!");
             
         }
 
-        const loginBusiness = await new ClientDataBase().login(email) 
+        const loginBusiness = await this.ClientDataBase.login(email) 
 
         if(!loginBusiness){
             throw new Error("Invalid credentials!")
@@ -66,13 +71,13 @@ export class ClientBusiness{
 
     
 
-        const hash = new HashGenerator().compareHash(password, loginBusiness.getPassword() )
+        const hash = this.HashGenerator.compareHash(password, loginBusiness.getPassword() ) as any
 
         if (!hash) {
             throw new Error("Invalid Password!");
         }
 
-        const token = new Authenticator().generateToken({id:loginBusiness.getId()})
+        const token = this.Authenticator.generateToken({id:loginBusiness.getId()}) as any
         return token
         } catch (error:any) {
         throw new Error(error.message || error.sqlMessage);
@@ -80,3 +85,5 @@ export class ClientBusiness{
         }
     }
 }
+
+export default new ClientBusiness(new IdGenerator(), new HashGenerator(), new Authenticator(), new ClientDataBase())

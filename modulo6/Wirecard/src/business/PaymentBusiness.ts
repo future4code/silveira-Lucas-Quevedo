@@ -1,14 +1,23 @@
 import { ClientDataBase } from "../data/ClientDataBase";
 import { PaymentDatabase } from "../data/PaymentDatabase";
-import { inputPaymetInputDTO, Payment } from "../model/Payment";
+import { InputGetPayment, inputPaymetDTO, Payment } from "../model/Payment";
 import Authenticator from "../services/Authenticator";
 import { IdGenerator } from "../services/idGenerator";
 import ValidatorCreditCard from "../services/ValidatorCredit";
-import StatusMock from "../services/Status.Mock";
+import StatusMock from "../../tests/mocks/Status.Mock";
 
 
 export class PaymentBusiness{
-    payment = async (input:inputPaymetInputDTO, auth:string ) =>{
+    constructor(
+        private PaymentDatabase:PaymentDatabase,
+        private Authenticator:Authenticator,
+        private ClientDataBase:ClientDataBase,
+        private StatusMock:StatusMock,
+        private ValidatorCreditCard:ValidatorCreditCard,
+        private IdGenerator:IdGenerator
+
+    ){}
+    payment = async (input:inputPaymetDTO, auth:string ) =>{
         try {
             const {clientId, amount, type, cardHolderName, cardNumber, cardExpirationDate, cardCvv} = input 
 
@@ -20,56 +29,53 @@ export class PaymentBusiness{
                throw new Error("fill in the fields correctly!");
             }
 
-           const authentication = new Authenticator().getData(auth)
+           const authentication = this.Authenticator.getData(auth)
             
            if(!authentication){
             throw new Error("invalid authentication!");
            }
            
-           const clientDB = await new ClientDataBase().getId(authentication.id)
+           const clientDB = await this.ClientDataBase.getId(authentication.id)
 
         
-           const id = new IdGenerator().generate()
+           const id =  this.IdGenerator.generate()
 
            if (type !== "credit card" && type !== "boleto") {
             throw new Error("Entered type is invalid, fill in 'credit card' or 'boleto' values.")
         }
+        console.log(clientDB)
 
         if (type === "boleto") {
-            const status = "processando"
+            const status = "Loading"
             const paymentCode = `34191.79001 01043.510047 91020.150008 6 906700${amount}`
 
             const newPayment = new Payment(id, status, clientDB.getId(), clientId, amount, type)
 
-             new PaymentDatabase().create(newPayment)
-            return { newPayment,  paymentCode}
+             this.PaymentDatabase.create(newPayment)
+            return { paymentCode}
         }
 
         if (type === "credit card") {
             if (!cardHolderName || !cardNumber || !cardExpirationDate || !cardCvv) {
                 throw new Error("Entered type is invalid, fill in 'cardHolderName','cardNumber','cardExpirationDate' e 'cardCvv'")
             }
-            const validCard = await new ValidatorCreditCard().validCreditCard(cardNumber)
-            const validCvv = await new ValidatorCreditCard().validateCVV(cardNumber, cardCvv)
+            this.ValidatorCreditCard.validCreditCard(cardNumber)
+             this.ValidatorCreditCard.validateCVV(cardNumber, cardCvv)
 
 
-            if (validCard === false || validCvv === false) {
-                throw new Error("The credit card number or cvv is invalid!")
-            }
-            
             const date = cardExpirationDate.split("/")
 
-            const validExpirationDate = new ValidatorCreditCard().validExpirationDate(date)
+            const validExpirationDate = this.ValidatorCreditCard.validExpirationDate(date)
 
             if (validExpirationDate === false) {
-                throw new Error("Cartão com data de vencimento expirada")
+                throw new Error("Card with expired expiration date")
             }
 
-            const status = new StatusMock().generate(amount)
+            const status = this.StatusMock.generate(amount)
 
             const newPayment = new Payment(id, status, clientDB.getId(), clientId, amount, type, cardHolderName, cardNumber, cardExpirationDate, cardCvv)
 
-            await new PaymentDatabase().create(newPayment)
+            await this.PaymentDatabase.create(newPayment)
 
             return newPayment
         }
@@ -79,7 +85,7 @@ export class PaymentBusiness{
             
         }
     }  
-    getPayment = async (input:any) =>{
+    getPayment = async (input:InputGetPayment) =>{
         try {
             const { id, token } = input 
 
@@ -93,10 +99,12 @@ export class PaymentBusiness{
             throw new Error(error.message || error.sqlMessage);
         }
 
-        const Payment = await new PaymentDatabase().getPayment(input.id)
+        const Payment = await this.PaymentDatabase.getPayment(input.id)
             if (!Payment) {
                 throw new Error("Payment not found, check if id is correct!")
             }
             return Payment
     }
 }
+
+export default new PaymentBusiness( new PaymentDatabase(), new Authenticator(), new ClientDataBase(), new StatusMock(), new ValidatorCreditCard, new IdGenerator() )

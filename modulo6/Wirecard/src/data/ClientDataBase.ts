@@ -2,7 +2,7 @@ import { Client, inputLoginDTO } from "../model/Client";
 import BaseDataBase from "./BaseDatabase";
 
 export class ClientDataBase extends BaseDataBase {
-    insertClient = async (input:Client) =>{
+    insertClient = async (input:Client)=>{
        
         try {
             await BaseDataBase.connection
@@ -20,7 +20,7 @@ export class ClientDataBase extends BaseDataBase {
         }
     }
 
-    login = async (email:string) =>{
+    login = async (email:any)=>{
         try {
             const client = await BaseDataBase.connection("clientWirecard")
             .select("*")
@@ -31,7 +31,7 @@ export class ClientDataBase extends BaseDataBase {
         }
     }
 
-    getId = async (id:string) =>{
+    getId = async (id:any)=>{
         try {
             const client = await BaseDataBase.connection("clientWirecard")
             .select("*")

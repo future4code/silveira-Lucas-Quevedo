@@ -39,7 +39,7 @@ export class Payment {
 }
 
 
-export interface inputPaymetInputDTO {
+export interface inputPaymetDTO {
     clientId: string;
     amount: number;
     type: string;
@@ -51,4 +51,9 @@ export interface inputPaymetInputDTO {
 
 export interface creditCardType{
     cardNumber:string
+}
+
+export interface InputGetPayment{
+    id:string,
+    token:string
 }

@@ -4,10 +4,10 @@ POST http://localhost:3003/users/createClient
 Content-Type: application/json
 
 {
-    "name":"Lucas",
-    "email":"lucas@lucas.com",
+    "name":"loiva",
+    "email":"loiva@lucas.com",
     "password":"123456",
-    "cpf":"111.111.111.11"
+    "cpf":"888.111.111.11"
 }
 
 ### Login
@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
 
-    "email":"lucas@lucas.com",
+    "email":"loiva@lucas.com",
     "password":"123456"
 
 }
@@ -28,13 +28,13 @@ Authorization: {{login.response.body.result}}
 Content-Type: application/json
 
 {
-    "clientId": "123456789",
+   "clientId": "123456789",
     "amount": 3000,
     "type":"credit card",
-    "cardHolderName":"Lucas",
-    "cardNumber":"4916 6705 5586 8558",
-    "cardExpirationDate":"08/2022",
-    "cardCvv": "560"
+    "cardHolderName":"joão",
+    "cardNumber":"5916 6705 5586 8558",
+    "cardExpirationDate":"09/2022",
+    "cardCvv": "500"
 }
 
 ### Buscar pagamento
@@ -43,5 +43,5 @@ Authorization: {{login.response.body.result}}
 Content-Type: application/json
 
 {
-    "id":"a78359b9-dd1e-47e1-8e46-c2fc3790b91d"
+    "id":"c269c414-7fae-4210-8f06-4165bbb20df9"
 }
